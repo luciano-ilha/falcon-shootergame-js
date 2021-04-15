@@ -4,8 +4,8 @@ class SceneTitle extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("button1", "images/ui/buttons/2/1.png");
-    this.load.image("title", "images/title.png");
+    this.load.image("button1", "/images/ui/buttons/2/1.png");
+    this.load.image("title", "/images/title.png");
   }
 
   create() {
@@ -36,6 +36,7 @@ class SceneTitle extends Phaser.Scene {
     emitter.on("start_game", this.startGame, this);
     mediaManager = new MediaManager({ scene: this });
     // mediaManager.setBackgroundMusic("backgroundMusic");
+    this.scene.start("SceneMain");
   }
 
   startGame() {

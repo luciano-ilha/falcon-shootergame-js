@@ -4,8 +4,8 @@ class SceneOver extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("button1", "images/ui/buttons/2/1.png");
-    this.load.image("title", "images/title.png");
+    this.load.image("button1", "/images/ui/buttons/2/1.png");
+    this.load.image("title", "/images/title.png");
   }
 
   create() {

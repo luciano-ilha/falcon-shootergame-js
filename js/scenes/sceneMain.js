@@ -23,27 +23,36 @@ class SceneMain extends Phaser.Scene {
     this.background.scaleX = this.ship.scaleX;
     this.background.scaleY = this.ship.scaleY;
 
-    this.background.setInteractive();
-    this.background.on("pointerdown", this.backgroundClicked, this);
+    // this.background.setInteractive();
+    // this.background.on("pointerdown", this.backgroundClicked, this);
 
     this.cursors = this.input.keyboard.createCursorKeys();
+
+    this.cameras.main.setBounds(
+      0,
+      0,
+      this.background.displayWidth,
+      this.background.displayHeight
+    );
+
+    this.cameras.main.startFollow(this.ship, true);
   }
 
-  backgroundClicked() {
-    let tx = this.background.input.localX * this.background.scaleX;
-    let ty = this.background.input.localY * this.background.scaleY;
+  // backgroundClicked() {
+  //   let tx = this.background.input.localX * this.background.scaleX;
+  //   let ty = this.background.input.localY * this.background.scaleY;
 
-    this.tx = tx;
-    this.ty = ty;
+  //   this.tx = tx;
+  //   this.ty = ty;
 
-    let angle = this.physics.moveTo(this.ship, tx, ty, 60);
-    angle = this.toDegrees(angle);
-    this.ship.angle = angle;
-  }
+  //   let angle = this.physics.moveTo(this.ship, tx, ty, 60);
+  //   angle = this.toDegrees(angle);
+  //   this.ship.angle = angle;
+  // }
 
-  toDegrees(angle) {
-    return angle * (180 / Math.PI);
-  }
+  // toDegrees(angle) {
+  //   return angle * (180 / Math.PI);
+  // }
 
   update() {
     if (this.cursors.left.isDown) {
@@ -82,11 +91,11 @@ class SceneMain extends Phaser.Scene {
       this.ship.angle = 135;
     }
 
-    let distX = Math.abs(this.ship.x - this.tx);
-    let distY = Math.abs(this.ship.y - this.ty);
+    // let distX = Math.abs(this.ship.x - this.tx);
+    // let distY = Math.abs(this.ship.y - this.ty);
 
-    if (distX < 10 && distY < 10) {
-      this.ship.body.setVelocity(0, 0);
-    }
+    // if (distX < 10 && distY < 10) {
+    //   this.ship.body.setVelocity(0, 0);
+    // }
   }
 }

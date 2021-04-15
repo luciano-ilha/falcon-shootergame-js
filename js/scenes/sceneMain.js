@@ -16,6 +16,8 @@ class SceneMain extends Phaser.Scene {
     this.centerX = this.game.config.width / 2;
     this.centerY = this.game.config.height / 2;
 
+    this.background = this.add.image(0, 0, "background");
+    this.background.setOrigin(0, 0);
     this.ship = this.physics.add.sprite(this.centerX, this.centerY, "ship");
   }
   update() {}

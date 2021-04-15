@@ -22,20 +22,24 @@ class SceneMain extends Phaser.Scene {
     Align.scaleToGameW(this.ship, 0.125);
     this.background.scaleX = this.ship.scaleX;
     this.background.scaleY = this.ship.scaleY;
-    // this.background.setInteractive();
-    // this.background.on("pointerdown", this.backgroundClicked, this);
+
+    this.background.setInteractive();
+    this.background.on("pointerdown", this.backgroundClicked, this);
 
     this.cursors = this.input.keyboard.createCursorKeys();
   }
 
-  // backgroundClicked() {
-  //   let tx = this.background.input.localX;
-  //   let ty = this.background.input.localY;
+  backgroundClicked() {
+    let tx = this.background.input.localX * this.background.scaleX;
+    let ty = this.background.input.localY * this.background.scaleY;
 
-  //   let angle = this.physics.moveTo(this.ship, tx, ty, 60);
-  //   angle = this.toDegrees(angle);
-  //   this.ship.angle = angle;
-  // }
+    this.tx = tx;
+    this.ty = ty;
+
+    let angle = this.physics.moveTo(this.ship, tx, ty, 60);
+    angle = this.toDegrees(angle);
+    this.ship.angle = angle;
+  }
 
   toDegrees(angle) {
     return angle * (180 / Math.PI);
@@ -76,6 +80,13 @@ class SceneMain extends Phaser.Scene {
 
     if (this.cursors.left.isDown && this.cursors.down.isDown) {
       this.ship.angle = 135;
+    }
+
+    let distX = Math.abs(this.ship.x - this.tx);
+    let distY = Math.abs(this.ship.y - this.ty);
+
+    if (distX < 10 && distY < 10) {
+      this.ship.body.setVelocity(0, 0);
     }
   }
 }

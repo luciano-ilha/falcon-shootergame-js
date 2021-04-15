@@ -19,7 +19,9 @@ class SceneMain extends Phaser.Scene {
     this.background = this.add.image(0, 0, "background");
     this.background.setOrigin(0, 0);
     this.ship = this.physics.add.sprite(this.centerX, this.centerY, "ship");
-
+    Align.scaleToGameW(this.ship, 0.125);
+    this.background.scaleX = this.ship.scaleX;
+    this.background.scaleY = this.ship.scaleY;
     // this.background.setInteractive();
     // this.background.on("pointerdown", this.backgroundClicked, this);
 

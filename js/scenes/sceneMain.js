@@ -36,6 +36,16 @@ class SceneMain extends Phaser.Scene {
     );
 
     this.cameras.main.startFollow(this.ship, true);
+
+    this.rockGroup = this.physics.add.group({
+      key: "rocks",
+      frame: [0, 1, 2],
+      frameQuantity: 20,
+      bounceX: 1,
+      bounceY: 1,
+      angularVelocity: 1,
+      collideWorldBounds: true,
+    });
   }
 
   // backgroundClicked() {

@@ -107,6 +107,12 @@ class SceneMain extends Phaser.Scene {
     Align.scaleToGameW(this.eship, 0.25);
   }
 
+  enemyChase() {
+    let angle = this.physics.moveTo(this.eship, this.ship.x, this.ship.y, 60);
+    angle = this.toDegrees(angle);
+    this.eship.angle = angle;
+  }
+
   destroyRock(bullet, rock) {
     bullet.destroy();
     let explosion = this.add.sprite(rock.x, rock.y, "exp");
@@ -147,57 +153,75 @@ class SceneMain extends Phaser.Scene {
   //   }
   // }
 
-  // toDegrees(angle) {
-  //   return angle * (180 / Math.PI);
-  // }
+  toDegrees(angle) {
+    return angle * (180 / Math.PI);
+  }
 
   update() {
     if (this.cursors.left.isDown) {
-      this.ship.x -= 1.5;
+      this.ship.x -= 2;
       this.ship.angle = -180;
+
+      this.enemyChase();
     }
 
     if (this.cursors.up.isDown) {
-      this.ship.y -= 1.5;
+      this.ship.y -= 2;
       this.ship.angle = -90;
+
+      this.enemyChase();
     }
 
     if (this.cursors.right.isDown) {
-      this.ship.x += 1.5;
+      this.ship.x += 2;
       this.ship.angle = 0;
+
+      this.enemyChase();
     }
 
     if (this.cursors.down.isDown) {
-      this.ship.y += 1.5;
+      this.ship.y += 2;
       this.ship.angle = 90;
+
+      this.enemyChase();
     }
 
     if (this.cursors.left.isDown && this.cursors.up.isDown) {
       this.ship.angle = -135;
+
+      this.enemyChase();
     }
 
     if (this.cursors.right.isDown && this.cursors.up.isDown) {
       this.ship.angle = -45;
+
+      this.enemyChase();
     }
 
     if (this.cursors.right.isDown && this.cursors.down.isDown) {
       this.ship.angle = 45;
+
+      this.enemyChase();
     }
 
     if (this.cursors.left.isDown && this.cursors.down.isDown) {
       this.ship.angle = 135;
+
+      this.enemyChase();
     }
 
     if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
       let dirObj = this.getDirFromAngle(this.ship.angle);
       let bullet = this.physics.add.sprite(
-        this.ship.x + dirObj.tx * 30,
-        this.ship.y + dirObj.ty * 30,
+        this.ship.x + dirObj.tx * 55,
+        this.ship.y + dirObj.ty * 55,
         "bullet"
       );
       this.bulletGroup.add(bullet);
       bullet.angle = this.ship.angle;
-      bullet.body.setVelocity(dirObj.tx * 250, dirObj.ty * 250);
+      bullet.body.setVelocity(dirObj.tx * 350, dirObj.ty * 350);
+
+      this.enemyChase();
     }
 
     // let distX = Math.abs(this.ship.x - this.tx);

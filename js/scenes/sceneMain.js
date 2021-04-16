@@ -18,8 +18,10 @@ class SceneMain extends Phaser.Scene {
 
     this.background = this.add.image(0, 0, "background");
     this.background.setOrigin(0, 0);
+
     this.ship = this.physics.add.sprite(this.centerX, this.centerY, "ship");
     Align.scaleToGameW(this.ship, 0.125);
+
     this.background.scaleX = this.ship.scaleX;
     this.background.scaleY = this.ship.scaleY;
     this.physics.world.setBounds(
@@ -100,6 +102,9 @@ class SceneMain extends Phaser.Scene {
       frameRate: 48,
       repeat: false,
     });
+
+    this.eship = this.physics.add.sprite(this.centerX, 0, "eship");
+    Align.scaleToGameW(this.eship, 0.25);
   }
 
   destroyRock(bullet, rock) {

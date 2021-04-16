@@ -30,7 +30,8 @@ class SceneMain extends Phaser.Scene {
     );
 
     // this.background.setInteractive();
-    // this.background.on("pointerdown", this.backgroundClicked, this);
+    // this.background.on("pointerup", this.backgroundClicked, this);
+    // this.background.on("pointerdown", this.onDown, this);
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -79,21 +80,42 @@ class SceneMain extends Phaser.Scene {
     this.physics.add.collider(this.rockGroup);
   }
 
-  // backgroundClicked() {
-  //   let tx = this.background.input.localX * this.background.scaleX;
-  //   let ty = this.background.input.localY * this.background.scaleY;
+  getDirFromAngle(angle) {
+    var rads = (angle * Math.PI) / 180;
+    var tx = Math.cos(rads);
+    var ty = Math.sin(rads);
+    return { tx, ty };
+  }
 
-  //   this.tx = tx;
-  //   this.ty = ty;
+  getTimer() {
+    let d = new Date();
+    return d.getTime();
+  }
 
-  //   let angle = this.physics.moveTo(this.ship, tx, ty, 60);
-  //   angle = this.toDegrees(angle);
-  //   this.ship.angle = angle;
-  // }
+  onDown() {
+    this.downTime = this.getTimer();
+  }
 
-  // toDegrees(angle) {
-  //   return angle * (180 / Math.PI);
-  // }
+  backgroundClicked() {
+    let elapsed = Math.abs(this.downTime - this.getTimer());
+    if (elapsed < 300) {
+      let tx = this.background.input.localX * this.background.scaleX;
+      let ty = this.background.input.localY * this.background.scaleY;
+
+      this.tx = tx;
+      this.ty = ty;
+
+      let angle = this.physics.moveTo(this.ship, tx, ty, 60);
+      angle = this.toDegrees(angle);
+      this.ship.angle = angle;
+    } else {
+      this.makeBullet();
+    }
+  }
+
+  toDegrees(angle) {
+    return angle * (180 / Math.PI);
+  }
 
   update() {
     if (this.cursors.left.isDown) {
@@ -130,6 +152,17 @@ class SceneMain extends Phaser.Scene {
 
     if (this.cursors.left.isDown && this.cursors.down.isDown) {
       this.ship.angle = 135;
+    }
+
+    if (this.cursors.space.isDown) {
+      let dirObj = this.getDirFromAngle(this.ship.angle);
+      let bullet = this.physics.add.sprite(
+        this.ship.x + dirObj.tx * 30,
+        this.ship.y + dirObj.ty * 30,
+        "bullet"
+      );
+      bullet.angle = this.ship.angle;
+      bullet.body.setVelocity(dirObj.tx * 200, dirObj.ty * 200);
     }
 
     // let distX = Math.abs(this.ship.x - this.tx);

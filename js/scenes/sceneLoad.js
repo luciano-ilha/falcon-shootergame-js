@@ -35,6 +35,7 @@ class SceneLoad extends Phaser.Scene {
       frameWidth: 125,
       frameHeight: 100,
     });
+    this.load.image("bullet", "/images/bullet.png");
   }
 
   onProgress(value) {

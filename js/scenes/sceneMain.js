@@ -44,6 +44,8 @@ class SceneMain extends Phaser.Scene {
 
     this.cameras.main.startFollow(this.ship, true);
 
+    this.bulletGroup = this.physics.add.group();
+
     this.rockGroup = this.physics.add.group({
       key: "rocks",
       frame: [0, 1, 2],
@@ -78,6 +80,18 @@ class SceneMain extends Phaser.Scene {
     );
 
     this.physics.add.collider(this.rockGroup);
+    this.physics.add.collider(
+      this.bulletGroup,
+      this.rockGroup,
+      this.destroyRock,
+      null,
+      this
+    );
+  }
+
+  destroyRock(bullet, rock) {
+    bullet.destroy();
+    rock.destroy();
   }
 
   getDirFromAngle(angle) {
@@ -119,22 +133,22 @@ class SceneMain extends Phaser.Scene {
 
   update() {
     if (this.cursors.left.isDown) {
-      this.ship.x -= 2;
+      this.ship.x -= 1.5;
       this.ship.angle = -180;
     }
 
     if (this.cursors.up.isDown) {
-      this.ship.y -= 2;
+      this.ship.y -= 1.5;
       this.ship.angle = -90;
     }
 
     if (this.cursors.right.isDown) {
-      this.ship.x += 2;
+      this.ship.x += 1.5;
       this.ship.angle = 0;
     }
 
     if (this.cursors.down.isDown) {
-      this.ship.y += 2;
+      this.ship.y += 1.5;
       this.ship.angle = 90;
     }
 
@@ -155,14 +169,18 @@ class SceneMain extends Phaser.Scene {
     }
 
     if (this.cursors.space.isDown) {
-      let dirObj = this.getDirFromAngle(this.ship.angle);
-      let bullet = this.physics.add.sprite(
-        this.ship.x + dirObj.tx * 30,
-        this.ship.y + dirObj.ty * 30,
-        "bullet"
-      );
-      bullet.angle = this.ship.angle;
-      bullet.body.setVelocity(dirObj.tx * 200, dirObj.ty * 200);
+      if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+        let dirObj = this.getDirFromAngle(this.ship.angle);
+        let bullet = this.physics.add.sprite(
+          this.ship.x + dirObj.tx * 30,
+          this.ship.y + dirObj.ty * 30,
+          "bullet"
+        );
+        console.log(this.cursors.space);
+        this.bulletGroup.add(bullet);
+        bullet.angle = this.ship.angle;
+        bullet.body.setVelocity(dirObj.tx * 250, dirObj.ty * 250);
+      }
     }
 
     // let distX = Math.abs(this.ship.x - this.tx);

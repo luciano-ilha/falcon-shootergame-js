@@ -168,19 +168,16 @@ class SceneMain extends Phaser.Scene {
       this.ship.angle = 135;
     }
 
-    if (this.cursors.space.isDown) {
-      if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
-        let dirObj = this.getDirFromAngle(this.ship.angle);
-        let bullet = this.physics.add.sprite(
-          this.ship.x + dirObj.tx * 30,
-          this.ship.y + dirObj.ty * 30,
-          "bullet"
-        );
-        console.log(this.cursors.space);
-        this.bulletGroup.add(bullet);
-        bullet.angle = this.ship.angle;
-        bullet.body.setVelocity(dirObj.tx * 250, dirObj.ty * 250);
-      }
+    if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+      let dirObj = this.getDirFromAngle(this.ship.angle);
+      let bullet = this.physics.add.sprite(
+        this.ship.x + dirObj.tx * 30,
+        this.ship.y + dirObj.ty * 30,
+        "bullet"
+      );
+      this.bulletGroup.add(bullet);
+      bullet.angle = this.ship.angle;
+      bullet.body.setVelocity(dirObj.tx * 250, dirObj.ty * 250);
     }
 
     // let distX = Math.abs(this.ship.x - this.tx);

@@ -87,6 +87,26 @@ class SceneMain extends Phaser.Scene {
       null,
       this
     );
+
+    let frameNames = this.anims.generateFrameNumbers("exp");
+
+    let f2 = frameNames.slice();
+    f2.reverse();
+    let f3 = f2.concat(frameNames);
+
+    this.anims.create({
+      key: "boom",
+      frames: f3,
+      frameRate: 48,
+      repeat: false,
+    });
+
+    this.explosion = this.add.sprite(
+      game.config.width / 2,
+      game.config.height / 2,
+      "exp"
+    );
+    this.explosion.play("boom");
   }
 
   destroyRock(bullet, rock) {

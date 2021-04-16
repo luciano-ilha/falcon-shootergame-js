@@ -87,35 +87,35 @@ class SceneMain extends Phaser.Scene {
     return { tx, ty };
   }
 
-  getTimer() {
-    let d = new Date();
-    return d.getTime();
-  }
+  // getTimer() {
+  //   let d = new Date();
+  //   return d.getTime();
+  // }
 
-  onDown() {
-    this.downTime = this.getTimer();
-  }
+  // onDown() {
+  //   this.downTime = this.getTimer();
+  // }
 
-  backgroundClicked() {
-    let elapsed = Math.abs(this.downTime - this.getTimer());
-    if (elapsed < 300) {
-      let tx = this.background.input.localX * this.background.scaleX;
-      let ty = this.background.input.localY * this.background.scaleY;
+  // backgroundClicked() {
+  //   let elapsed = Math.abs(this.downTime - this.getTimer());
+  //   if (elapsed < 300) {
+  //     let tx = this.background.input.localX * this.background.scaleX;
+  //     let ty = this.background.input.localY * this.background.scaleY;
 
-      this.tx = tx;
-      this.ty = ty;
+  //     this.tx = tx;
+  //     this.ty = ty;
 
-      let angle = this.physics.moveTo(this.ship, tx, ty, 60);
-      angle = this.toDegrees(angle);
-      this.ship.angle = angle;
-    } else {
-      this.makeBullet();
-    }
-  }
+  //     let angle = this.physics.moveTo(this.ship, tx, ty, 60);
+  //     angle = this.toDegrees(angle);
+  //     this.ship.angle = angle;
+  //   } else {
+  //     this.makeBullet();
+  //   }
+  // }
 
-  toDegrees(angle) {
-    return angle * (180 / Math.PI);
-  }
+  // toDegrees(angle) {
+  //   return angle * (180 / Math.PI);
+  // }
 
   update() {
     if (this.cursors.left.isDown) {

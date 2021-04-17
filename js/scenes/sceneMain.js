@@ -135,6 +135,20 @@ class SceneMain extends Phaser.Scene {
       null,
       this
     );
+    this.physics.add.collider(
+      this.rockGroup,
+      this.ship,
+      this.rockHitPlayer,
+      null,
+      this
+    );
+    this.physics.add.collider(
+      this.rockGroup,
+      this.eship,
+      this.rockHitEnemy,
+      null,
+      this
+    );
   }
 
   makeInfo() {
@@ -176,6 +190,18 @@ class SceneMain extends Phaser.Scene {
     let angle = this.physics.moveTo(this.eship, this.ship.x, this.ship.y, 60);
     angle = this.toDegrees(angle);
     this.eship.angle = angle;
+  }
+
+  rockHitPlayer(ship, rock) {
+    let explosion = this.add.sprite(rock.x, rock.y, "exp");
+    explosion.play("boom");
+    rock.destroy();
+  }
+
+  rockHitEnemy(ship, rock) {
+    let explosion = this.add.sprite(rock.x, rock.y, "exp");
+    explosion.play("boom");
+    rock.destroy();
   }
 
   damagePlayer(ship, bullet) {

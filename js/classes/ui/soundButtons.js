@@ -33,11 +33,11 @@ class SoundButtons extends Phaser.GameObjects.Container {
     this.sfxButton.setNoScroll();
     this.musicButton.setNoScroll();
 
-    if (model.musicOn == false) {
+    if (model.musicOn == true) {
       this.musicButton.toggle();
     }
 
-    if (model.soundOn == false) {
+    if (model.soundOn == true) {
       this.sfxButton.toggle();
     }
 

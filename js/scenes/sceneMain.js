@@ -128,19 +128,24 @@ class SceneMain extends Phaser.Scene {
   }
 
   fireEBullet() {
+    let elapsed = Math.abs(this.lastEBullet - this.getTimer());
+    if (elapsed < 500) {
+      return;
+    }
+    this.lastEBullet = this.getTimer();
     let ebullet = this.physics.add.sprite(
       this.eship.x,
       this.eship.y,
       "ebullet"
     );
     ebullet.body.angularVelocity = 10;
-    this.physics.moveTo(ebullet, this.ship.x, this.ship.y, 60);
+    this.physics.moveTo(ebullet, this.ship.x, this.ship.y, 100);
   }
 
-  // getTimer() {
-  //   let d = new Date();
-  //   return d.getTime();
-  // }
+  getTimer() {
+    let d = new Date();
+    return d.getTime();
+  }
 
   // onDown() {
   //   this.downTime = this.getTimer();

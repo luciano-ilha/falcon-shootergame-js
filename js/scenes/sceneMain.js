@@ -219,6 +219,8 @@ class SceneMain extends Phaser.Scene {
   rockHitPlayer(ship, rock) {
     let explosion = this.add.sprite(rock.x, rock.y, "exp");
     explosion.play("boom");
+    emitter.emit(G.PLAY_SOUND, "explode");
+
     rock.destroy();
     this.makeRocks();
     this.downPlayer();
@@ -227,6 +229,7 @@ class SceneMain extends Phaser.Scene {
   rockHitEnemy(ship, rock) {
     let explosion = this.add.sprite(rock.x, rock.y, "exp");
     explosion.play("boom");
+    emitter.emit(G.PLAY_SOUND, "explode");
     rock.destroy();
     this.makeRocks();
     this.downEnemy();
@@ -235,6 +238,7 @@ class SceneMain extends Phaser.Scene {
   damagePlayer(ship, bullet) {
     let explosion = this.add.sprite(this.ship.x, this.ship.y, "exp");
     explosion.play("boom");
+    emitter.emit(G.PLAY_SOUND, "explode");
     bullet.destroy();
     this.downPlayer();
   }
@@ -242,6 +246,7 @@ class SceneMain extends Phaser.Scene {
   damageEnemy(ship, bullet) {
     let explosion = this.add.sprite(bullet.x, bullet.y, "exp");
     explosion.play("boom");
+    emitter.emit(G.PLAY_SOUND, "explode");
     bullet.destroy();
     this.downEnemy();
 
@@ -254,6 +259,7 @@ class SceneMain extends Phaser.Scene {
     bullet.destroy();
     let explosion = this.add.sprite(rock.x, rock.y, "exp");
     explosion.play("boom");
+    emitter.emit(G.PLAY_SOUND, "explode");
     rock.destroy();
     this.makeRocks();
   }
@@ -279,6 +285,7 @@ class SceneMain extends Phaser.Scene {
     this.ebulletGroup.add(ebullet);
     ebullet.body.angularVelocity = 10;
     this.physics.moveTo(ebullet, this.ship.x, this.ship.y, 150);
+    emitter.emit(G.PLAY_SOUND, "enemyShoot");
   }
 
   getTimer() {
@@ -376,6 +383,7 @@ class SceneMain extends Phaser.Scene {
       bullet.body.setVelocity(dirObj.tx * 350, dirObj.ty * 350);
 
       this.enemyChase();
+      emitter.emit(G.PLAY_SOUND, "laser");
     }
 
     // let distX = Math.abs(this.ship.x - this.tx);

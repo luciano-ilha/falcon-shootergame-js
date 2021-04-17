@@ -13,6 +13,8 @@ class SceneMain extends Phaser.Scene {
 
     let sb = new SoundButtons({ scene: this });
 
+    this.shields = 100;
+    this.eshields = 100;
     this.centerX = this.game.config.width / 2;
     this.centerY = this.game.config.height / 2;
 
@@ -103,6 +105,16 @@ class SceneMain extends Phaser.Scene {
 
     this.makeInfo();
     this.setColliders();
+  }
+
+  downPlayer() {
+    this.shields--;
+    this.text1.setText("Shields\n" + this.shields);
+  }
+
+  downEnemy() {
+    this.eshields--;
+    this.text2.setText("Enemy Shields\n" + this.eshields);
   }
 
   setColliders() {
@@ -196,24 +208,28 @@ class SceneMain extends Phaser.Scene {
     let explosion = this.add.sprite(rock.x, rock.y, "exp");
     explosion.play("boom");
     rock.destroy();
+    this.downPlayer();
   }
 
   rockHitEnemy(ship, rock) {
     let explosion = this.add.sprite(rock.x, rock.y, "exp");
     explosion.play("boom");
     rock.destroy();
+    this.downEnemy();
   }
 
   damagePlayer(ship, bullet) {
     let explosion = this.add.sprite(this.ship.x, this.ship.y, "exp");
     explosion.play("boom");
     bullet.destroy();
+    this.downPlayer();
   }
 
   damageEnemy(ship, bullet) {
     let explosion = this.add.sprite(bullet.x, bullet.y, "exp");
     explosion.play("boom");
     bullet.destroy();
+    this.downEnemy();
 
     let angle = this.physics.moveTo(this.eship, this.ship.x, this.ship.y, 100);
     angle = this.toDegrees(angle);

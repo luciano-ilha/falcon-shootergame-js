@@ -35,6 +35,7 @@ class SceneTitle extends Phaser.Scene {
     emitter.on("start_game", this.startGame, this);
     mediaManager = new MediaManager({ scene: this });
     // mediaManager.setBackgroundMusic("backgroundMusic");
+    let sb = new SoundButtons({ scene: this });
   }
 
   startGame() {

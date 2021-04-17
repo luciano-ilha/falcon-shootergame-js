@@ -9,8 +9,9 @@ class SceneOver extends Phaser.Scene {
   }
 
   create() {
+    this.add.image(0, 0, "background").setOrigin(0.5, 0.5);
     this.alignGrid = new AlignGrid({ rows: 11, cols: 11, scene: this });
-    this.alignGrid.showNumbers();
+    // this.alignGrid.showNumbers();
 
     let title = this.add.image(0, 0, "title");
     Align.scaleToGameW(title, 0.8);
@@ -41,6 +42,8 @@ class SceneOver extends Phaser.Scene {
     this.alignGrid.placeAtIndex(60, this.winner);
 
     emitter.on("start_game", this.startGame, this);
+
+    let sb = new SoundButtons({ scene: this });
   }
 
   startGame() {

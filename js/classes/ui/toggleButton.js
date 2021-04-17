@@ -41,10 +41,15 @@ class ToggleButton extends Phaser.GameObjects.Container {
     this.scene.add.existing(this);
   }
 
+  setNoScroll() {
+    this.back.setScrollFactor(0);
+    this.onIcon.setScrollFactor(0);
+    this.offIcon.setScrollFactor(0);
+  }
+
   toggle() {
     this.value = !this.value;
     this.setIcons();
-
     if (this.event) {
       emitter.emit(this.event, this.value);
     }
@@ -52,11 +57,11 @@ class ToggleButton extends Phaser.GameObjects.Container {
 
   setIcons() {
     if (this.value == true) {
-      this.onIcon.visible = false;
-      this.offIcon.visible = true;
-    } else {
       this.onIcon.visible = true;
       this.offIcon.visible = false;
+    } else {
+      this.onIcon.visible = false;
+      this.offIcon.visible = true;
     }
   }
 }

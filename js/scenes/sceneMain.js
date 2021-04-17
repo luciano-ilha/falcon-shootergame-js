@@ -95,6 +95,7 @@ class SceneMain extends Phaser.Scene {
           child.body.setVelocity(vx * speed, vy * speed);
         }.bind(this)
       );
+      this.setRockColliders();
     }
   }
   // player's health
@@ -117,6 +118,22 @@ class SceneMain extends Phaser.Scene {
   }
   // collisions
   setColliders() {
+    this.physics.add.collider(
+      this.bulletGroup,
+      this.eship,
+      this.damageEnemy,
+      null,
+      this
+    );
+    this.physics.add.collider(
+      this.ebulletGroup,
+      this.ship,
+      this.damagePlayer,
+      null,
+      this
+    );
+  }
+  setRockColliders() {
     this.physics.add.collider(this.rockGroup);
     this.physics.add.collider(
       this.bulletGroup,
@@ -129,20 +146,6 @@ class SceneMain extends Phaser.Scene {
       this.ebulletGroup,
       this.rockGroup,
       this.destroyRock,
-      null,
-      this
-    );
-    this.physics.add.collider(
-      this.bulletGroup,
-      this.eship,
-      this.damageEnemy,
-      null,
-      this
-    );
-    this.physics.add.collider(
-      this.ebulletGroup,
-      this.ship,
-      this.damagePlayer,
       null,
       this
     );

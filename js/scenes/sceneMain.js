@@ -188,6 +188,10 @@ class SceneMain extends Phaser.Scene {
     let explosion = this.add.sprite(bullet.x, bullet.y, "exp");
     explosion.play("boom");
     bullet.destroy();
+
+    let angle = this.physics.moveTo(this.eship, this.ship.x, this.ship.y, 100);
+    angle = this.toDegrees(angle);
+    this.eship.angle = angle;
   }
 
   destroyRock(bullet, rock) {
@@ -217,7 +221,7 @@ class SceneMain extends Phaser.Scene {
     );
     this.ebulletGroup.add(ebullet);
     ebullet.body.angularVelocity = 10;
-    this.physics.moveTo(ebullet, this.ship.x, this.ship.y, 100);
+    this.physics.moveTo(ebullet, this.ship.x, this.ship.y, 150);
   }
 
   getTimer() {
@@ -327,7 +331,7 @@ class SceneMain extends Phaser.Scene {
     let distX = Math.abs(this.ship.x - this.eship.x);
     let distY = Math.abs(this.ship.y - this.eship.y);
 
-    if (distX < game.config.width / 5 && distY < game.config.height / 5) {
+    if (distX < game.config.width / 3 && distY < game.config.height / 3) {
       this.fireEBullet();
     }
   }

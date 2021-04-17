@@ -39,6 +39,7 @@ class SceneLoad extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 64,
     });
+    this.load.image("ebullet", "/images/ebullet.png");
     this.load.image("bullet", "/images/bullet.png");
     this.load.image("eship", "/images/eship.png");
   }

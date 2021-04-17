@@ -19,7 +19,7 @@ class SceneLoad extends Phaser.Scene {
     this.progText.setOrigin(0.5, 0.5);
     this.load.on("progress", this.onProgress, this);
 
-    this.load.image("button1", "/images/ui/buttons/2/1.png");
+    this.load.image("button1", "/images/ui/buttons/2/4.png");
     this.load.image("button2", "/images/ui/buttons/2/5.png");
 
     this.load.image("toggleBack", "/images/ui/toggles/1.png");

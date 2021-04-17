@@ -6,24 +6,31 @@ class SceneMain extends Phaser.Scene {
   preload() {}
 
   create() {
+    // emitter and controller
     emitter = new Phaser.Events.EventEmitter();
     controller = new Controller();
-
     mediaManager = new MediaManager({ scene: this });
-
-    this.shields = 100;
-    this.eshields = 100;
+    mediaManager.setBackgroundMusic("backgroundMusic");
+    // ships health
+    this.shields = 10;
+    this.eshields = 10;
+    // if player wins
     model.playerWon = true;
+    // center screen
     this.centerX = this.game.config.width / 2;
     this.centerY = this.game.config.height / 2;
-
+    // background image
     this.background = this.add.image(0, 0, "background");
     this.background.setOrigin(0, 0);
-
+    // player's ship and it's config
     this.ship = this.physics.add.sprite(this.centerX, this.centerY, "ship");
     this.ship.body.collideWorldBounds = true;
     Align.scaleToGameW(this.ship, 0.125);
-
+    // enemy's ship
+    this.eship = this.physics.add.sprite(this.centerX, 0, "eship");
+    this.eship.body.collideWorldBounds = true;
+    Align.scaleToGameW(this.eship, 0.25);
+    // set game bounds
     this.background.scaleX = this.ship.scaleX;
     this.background.scaleY = this.ship.scaleY;
     this.physics.world.setBounds(
@@ -32,13 +39,9 @@ class SceneMain extends Phaser.Scene {
       this.background.displayWidth,
       this.background.displayHeight
     );
-
-    // this.background.setInteractive();
-    // this.background.on("pointerup", this.backgroundClicked, this);
-    // this.background.on("pointerdown", this.onDown, this);
-
+    // keyboard moving cursors
     this.cursors = this.input.keyboard.createCursorKeys();
-
+    // rolling background camera
     this.cameras.main.setBounds(
       0,
       0,
@@ -46,34 +49,19 @@ class SceneMain extends Phaser.Scene {
       this.background.displayHeight
     );
     this.cameras.main.startFollow(this.ship, true);
-
+    // ships bullets and rock groups
     this.bulletGroup = this.physics.add.group();
     this.ebulletGroup = this.physics.add.group();
     this.rockGroup = this.physics.add.group();
     this.makeRocks();
-
-    let frameNames = this.anims.generateFrameNumbers("exp");
-
-    let f2 = frameNames.slice();
-    f2.reverse();
-    let f3 = f2.concat(frameNames);
-
-    this.anims.create({
-      key: "boom",
-      frames: f3,
-      frameRate: 48,
-      repeat: false,
-    });
-
-    this.eship = this.physics.add.sprite(this.centerX, 0, "eship");
-    this.eship.body.collideWorldBounds = true;
-    Align.scaleToGameW(this.eship, 0.25);
-
+    // in game health and ship icons
     this.makeInfo();
+    // collisions
     this.setColliders();
+    // sfx and music buttons
     let sb = new SoundButtons({ scene: this });
   }
-
+  // spawns rocks when zero
   makeRocks() {
     if (this.rockGroup.getChildren() == 0) {
       this.rockGroup = this.physics.add.group({
@@ -85,7 +73,6 @@ class SceneMain extends Phaser.Scene {
         angularVelocity: 1,
         collideWorldBounds: true,
       });
-
       this.rockGroup.children.iterate(
         function (child) {
           let xx = Math.floor(Math.random() * this.background.displayWidth);
@@ -110,7 +97,7 @@ class SceneMain extends Phaser.Scene {
       );
     }
   }
-
+  // player's health
   downPlayer() {
     this.shields--;
     this.text1.setText("Shields\n" + this.shields);
@@ -119,7 +106,7 @@ class SceneMain extends Phaser.Scene {
       this.scene.start("SceneOver");
     }
   }
-
+  // enemy's health
   downEnemy() {
     this.eshields--;
     this.text2.setText("Enemy Shields\n" + this.eshields);
@@ -128,7 +115,7 @@ class SceneMain extends Phaser.Scene {
       this.scene.start("SceneOver");
     }
   }
-
+  // collisions
   setColliders() {
     this.physics.add.collider(this.rockGroup);
     this.physics.add.collider(
@@ -174,7 +161,7 @@ class SceneMain extends Phaser.Scene {
       this
     );
   }
-
+  // health
   makeInfo() {
     this.text1 = this.add.text(0, 0, "Shields\n100", {
       fontSize: game.config.width / 30,
@@ -209,13 +196,13 @@ class SceneMain extends Phaser.Scene {
     this.icon1.setScrollFactor(0);
     this.icon2.setScrollFactor(0);
   }
-
+  // enemy pursue player
   enemyChase() {
     let angle = this.physics.moveTo(this.eship, this.ship.x, this.ship.y, 60);
     angle = this.toDegrees(angle);
     this.eship.angle = angle;
   }
-
+  // rock - player actions
   rockHitPlayer(ship, rock) {
     let explosion = this.add.sprite(rock.x, rock.y, "exp");
     explosion.play("boom");
@@ -225,7 +212,7 @@ class SceneMain extends Phaser.Scene {
     this.makeRocks();
     this.downPlayer();
   }
-
+  // rock vs enemy actions
   rockHitEnemy(ship, rock) {
     let explosion = this.add.sprite(rock.x, rock.y, "exp");
     explosion.play("boom");
@@ -234,7 +221,7 @@ class SceneMain extends Phaser.Scene {
     this.makeRocks();
     this.downEnemy();
   }
-
+  // bullet vs player actions
   damagePlayer(ship, bullet) {
     let explosion = this.add.sprite(this.ship.x, this.ship.y, "exp");
     explosion.play("boom");
@@ -242,7 +229,7 @@ class SceneMain extends Phaser.Scene {
     bullet.destroy();
     this.downPlayer();
   }
-
+  // bullet vs enemy actions
   damageEnemy(ship, bullet) {
     let explosion = this.add.sprite(bullet.x, bullet.y, "exp");
     explosion.play("boom");
@@ -254,7 +241,7 @@ class SceneMain extends Phaser.Scene {
     angle = this.toDegrees(angle);
     this.eship.angle = angle;
   }
-
+  // // bullet vs rocks actions
   destroyRock(bullet, rock) {
     bullet.destroy();
     let explosion = this.add.sprite(rock.x, rock.y, "exp");
@@ -263,14 +250,14 @@ class SceneMain extends Phaser.Scene {
     rock.destroy();
     this.makeRocks();
   }
-
+  // gets angle to enemy's pursue direction
   getDirFromAngle(angle) {
     let rads = (angle * Math.PI) / 180;
     let tx = Math.cos(rads);
     let ty = Math.sin(rads);
     return { tx, ty };
   }
-
+  // enemy fire
   fireEBullet() {
     let elapsed = Math.abs(this.lastEBullet - this.getTimer());
     if (elapsed < 500) {
@@ -287,33 +274,12 @@ class SceneMain extends Phaser.Scene {
     this.physics.moveTo(ebullet, this.ship.x, this.ship.y, 150);
     emitter.emit(G.PLAY_SOUND, "enemyShoot");
   }
-
+  // time reference for enemy fire
   getTimer() {
     let d = new Date();
     return d.getTime();
   }
-
-  // onDown() {
-  //   this.downTime = this.getTimer();
-  // }
-
-  // backgroundClicked() {
-  //   let elapsed = Math.abs(this.downTime - this.getTimer());
-  //   if (elapsed < 300) {
-  //     let tx = this.background.input.localX * this.background.scaleX;
-  //     let ty = this.background.input.localY * this.background.scaleY;
-
-  //     this.tx = tx;
-  //     this.ty = ty;
-
-  //     let angle = this.physics.moveTo(this.ship, tx, ty, 60);
-  //     angle = this.toDegrees(angle);
-  //     this.ship.angle = angle;
-  //   } else {
-  //     this.makeBullet();
-  //   }
-  // }
-
+  // converts to degreed
   toDegrees(angle) {
     return angle * (180 / Math.PI);
   }
@@ -325,52 +291,44 @@ class SceneMain extends Phaser.Scene {
 
       this.enemyChase();
     }
-
     if (this.cursors.up.isDown) {
       this.ship.y -= 2;
       this.ship.angle = -90;
 
       this.enemyChase();
     }
-
     if (this.cursors.right.isDown) {
       this.ship.x += 2;
       this.ship.angle = 0;
 
       this.enemyChase();
     }
-
     if (this.cursors.down.isDown) {
       this.ship.y += 2;
       this.ship.angle = 90;
 
       this.enemyChase();
     }
-
     if (this.cursors.left.isDown && this.cursors.up.isDown) {
       this.ship.angle = -135;
 
       this.enemyChase();
     }
-
     if (this.cursors.right.isDown && this.cursors.up.isDown) {
       this.ship.angle = -45;
 
       this.enemyChase();
     }
-
     if (this.cursors.right.isDown && this.cursors.down.isDown) {
       this.ship.angle = 45;
 
       this.enemyChase();
     }
-
     if (this.cursors.left.isDown && this.cursors.down.isDown) {
       this.ship.angle = 135;
 
       this.enemyChase();
     }
-
     if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
       let dirObj = this.getDirFromAngle(this.ship.angle);
       let bullet = this.physics.add.sprite(
@@ -385,13 +343,6 @@ class SceneMain extends Phaser.Scene {
       this.enemyChase();
       emitter.emit(G.PLAY_SOUND, "laser");
     }
-
-    // let distX = Math.abs(this.ship.x - this.tx);
-    // let distY = Math.abs(this.ship.y - this.ty);
-
-    // if (distX < 10 && distY < 10) {
-    //   this.ship.body.setVelocity(0, 0);
-    // }
 
     let distX = Math.abs(this.ship.x - this.eship.x);
     let distY = Math.abs(this.ship.y - this.eship.y);

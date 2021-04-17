@@ -28,6 +28,10 @@ class SceneLoad extends Phaser.Scene {
       "/audio/enemyShoot.ogg",
     ]);
     this.load.audio("laser", ["/audio/laser.wav", "/audio/laser.ogg"]);
+    this.load.audio("backgroundMusic", [
+      "/audio/background.mp3",
+      "/audio/background.ogg",
+    ]);
 
     this.load.image("toggleBack", "/images/ui/toggles/1.png");
     this.load.image("sfxOff", "/images/ui/icons/sfx_off.png");
@@ -58,6 +62,17 @@ class SceneLoad extends Phaser.Scene {
   }
 
   create() {
+    // boom animation
+    let frameNames = this.anims.generateFrameNumbers("exp");
+    let f2 = frameNames.slice();
+    f2.reverse();
+    let f3 = f2.concat(frameNames);
+    this.anims.create({
+      key: "boom",
+      frames: f3,
+      frameRate: 48,
+      repeat: false,
+    });
     this.scene.start("SceneTitle");
   }
 }

@@ -137,6 +137,11 @@ class SceneMain extends Phaser.Scene {
 
     this.icon1.angle = 270;
     this.icon2.angle = 270;
+
+    this.text1.setScrollFactor(0);
+    this.text2.setScrollFactor(0);
+    this.icon1.setScrollFactor(0);
+    this.icon2.setScrollFactor(0);
   }
 
   enemyChase() {

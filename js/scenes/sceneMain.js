@@ -13,8 +13,9 @@ class SceneMain extends Phaser.Scene {
 
     let sb = new SoundButtons({ scene: this });
 
-    this.shields = 100;
-    this.eshields = 100;
+    this.shields = 5;
+    this.eshields = 5;
+    model.playerWon = true;
     this.centerX = this.game.config.width / 2;
     this.centerY = this.game.config.height / 2;
 
@@ -51,8 +52,6 @@ class SceneMain extends Phaser.Scene {
     this.bulletGroup = this.physics.add.group();
     this.ebulletGroup = this.physics.add.group();
     this.rockGroup = this.physics.add.group();
-    // console.log(this.rockGroup);
-    console.log(this.rockGroup.getChildren());
     this.makeRocks();
 
     let frameNames = this.anims.generateFrameNumbers("exp");
@@ -116,11 +115,19 @@ class SceneMain extends Phaser.Scene {
   downPlayer() {
     this.shields--;
     this.text1.setText("Shields\n" + this.shields);
+    if (this.shields == 0) {
+      model.playerWon = false;
+      this.scene.start("SceneOver");
+    }
   }
 
   downEnemy() {
     this.eshields--;
     this.text2.setText("Enemy Shields\n" + this.eshields);
+    if (this.eshields == 0) {
+      model.playerWon = true;
+      this.scene.start("SceneOver");
+    }
   }
 
   setColliders() {

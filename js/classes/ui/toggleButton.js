@@ -14,11 +14,12 @@ class ToggleButton extends Phaser.GameObjects.Container {
     this.add(this.back);
     this.add(this.onIcon);
     this.add(this.offIcon);
-    this.value = config.value;
 
     if (!config.value) {
       config.value = true;
     }
+
+    this.value = config.value;
 
     if (config.event) {
       this.event = config.event;
@@ -49,7 +50,6 @@ class ToggleButton extends Phaser.GameObjects.Container {
 
   toggle() {
     this.value = !this.value;
-    console.log(this.event);
     this.setIcons();
     if (this.event) {
       emitter.emit(this.event, this.value);

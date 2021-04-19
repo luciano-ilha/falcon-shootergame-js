@@ -1,0 +1,19 @@
+{
+  "name": "falcon-shootergame",
+  "version": "1.0.0",
+  "description": "A phaser JS shooter game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luciano-ilha/falcon-shootergame-js.git"
+  },
+  "author": "Luciano Ilha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luciano-ilha/falcon-shootergame-js/issues"
+  },
+  "homepage": "https://github.com/luciano-ilha/falcon-shootergame-js#readme"
+}

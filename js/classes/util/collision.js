@@ -8,5 +8,6 @@ class Collision {
         return true;
       }
     }
+    return false;
   }
 }

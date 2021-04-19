@@ -7,7 +7,7 @@ class MediaManager {
 
   musicChanged() {
     if (this.background) {
-      if (model.musicOn == true) {
+      if (model.musicOn == false) {
         this.background.stop();
       } else {
         this.background.play();

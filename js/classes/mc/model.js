@@ -6,13 +6,11 @@ class Model {
   }
 
   set musicOn(val) {
-    mediaManager.musicChanged();
     this._musicOn = val;
-    // emitter.emit(G.MUSIC_CHANGED);
+    emitter.emit(G.MUSIC_CHANGED);
   }
 
   get musicOn() {
-    console.log(this._musicOn);
     return this._musicOn;
   }
 

@@ -10,7 +10,7 @@ class SceneMain extends Phaser.Scene {
     emitter = new Phaser.Events.EventEmitter();
     controller = new Controller();
     mediaManager = new MediaManager({ scene: this });
-    mediaManager.setBackgroundMusic("backgroundMusic");
+    // mediaManager.setBackgroundMusic("backgroundMusic");
     // ships health
     this.shields = 10;
     this.eshields = 10;

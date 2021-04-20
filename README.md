@@ -92,4 +92,4 @@ Give a ⭐️ if you like this project!
 ## :thumbsup: Acknowledgements
 
 - Microverse
-- ThOdinProject
+- PhaserJS

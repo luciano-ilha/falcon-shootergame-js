@@ -1,4 +1,10 @@
-class SceneMain extends Phaser.Scene {
+import { emitter, controller, mediaManager, model, game, G } from "../../index";
+import { SoundButtons } from "../classes/ui/soundButtons";
+import { Align } from "../classes/util/align";
+import { AlignGrid } from "../classes/util/alignGrid";
+import { MediaManager } from "../classes/util/mediaManager";
+
+export class SceneMain extends Phaser.Scene {
   constructor() {
     super("SceneMain");
   }
@@ -7,10 +13,12 @@ class SceneMain extends Phaser.Scene {
 
   create() {
     // emitter and controller
-    emitter = new Phaser.Events.EventEmitter();
-    controller = new Controller();
-    mediaManager = new MediaManager({ scene: this });
-    mediaManager.setBackgroundMusic("backgroundMusic");
+    // emitter = new Phaser.Events.EventEmitter();
+    // controller = new Controller();
+    // mediaManager = new MediaManager({ scene: this });
+    mediaManager.setBackgroundMusic(
+      this.sound.add("backgroundMusic", { volume: 0.5, loop: true })
+    );
     // ships health
     this.shields = 100;
     this.eshields = 100;
@@ -209,7 +217,7 @@ class SceneMain extends Phaser.Scene {
   rockHitPlayer(ship, rock) {
     let explosion = this.add.sprite(rock.x, rock.y, "exp");
     explosion.play("boom");
-    emitter.emit(G.PLAY_SOUND, "explode");
+    emitter.emit(G.PLAY_SOUND, this.sound.add("explode"));
 
     rock.destroy();
     this.makeRocks();
@@ -219,7 +227,7 @@ class SceneMain extends Phaser.Scene {
   rockHitEnemy(ship, rock) {
     let explosion = this.add.sprite(rock.x, rock.y, "exp");
     explosion.play("boom");
-    emitter.emit(G.PLAY_SOUND, "explode");
+    emitter.emit(G.PLAY_SOUND, this.sound.add("explode"));
     rock.destroy();
     this.makeRocks();
     this.downEnemy();
@@ -228,7 +236,7 @@ class SceneMain extends Phaser.Scene {
   damagePlayer(ship, bullet) {
     let explosion = this.add.sprite(this.ship.x, this.ship.y, "exp");
     explosion.play("boom");
-    emitter.emit(G.PLAY_SOUND, "explode");
+    emitter.emit(G.PLAY_SOUND, this.sound.add("explode"));
     bullet.destroy();
     this.downPlayer();
   }
@@ -236,7 +244,7 @@ class SceneMain extends Phaser.Scene {
   damageEnemy(ship, bullet) {
     let explosion = this.add.sprite(bullet.x, bullet.y, "exp");
     explosion.play("boom");
-    emitter.emit(G.PLAY_SOUND, "explode");
+    emitter.emit(G.PLAY_SOUND, this.sound.add("explode"));
     bullet.destroy();
     this.downEnemy();
 
@@ -249,7 +257,7 @@ class SceneMain extends Phaser.Scene {
     bullet.destroy();
     let explosion = this.add.sprite(rock.x, rock.y, "exp");
     explosion.play("boom");
-    emitter.emit(G.PLAY_SOUND, "explode");
+    emitter.emit(G.PLAY_SOUND, this.sound.add("explode"));
     rock.destroy();
     this.makeRocks();
   }
@@ -275,7 +283,7 @@ class SceneMain extends Phaser.Scene {
     this.ebulletGroup.add(ebullet);
     ebullet.body.angularVelocity = 10;
     this.physics.moveTo(ebullet, this.ship.x, this.ship.y, 150);
-    emitter.emit(G.PLAY_SOUND, "enemyShoot");
+    emitter.emit(G.PLAY_SOUND, this.sound.add("enemyShoot"));
   }
   // time reference for enemy fire
   getTimer() {
@@ -332,6 +340,7 @@ class SceneMain extends Phaser.Scene {
 
       this.enemyChase();
     }
+    // disable permanent shoot while space is constantly pressed
     if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
       let dirObj = this.getDirFromAngle(this.ship.angle);
       let bullet = this.physics.add.sprite(
@@ -344,7 +353,7 @@ class SceneMain extends Phaser.Scene {
       bullet.body.setVelocity(dirObj.tx * 350, dirObj.ty * 350);
 
       this.enemyChase();
-      emitter.emit(G.PLAY_SOUND, "laser");
+      emitter.emit(G.PLAY_SOUND, this.sound.add("laser"));
     }
 
     let distX = Math.abs(this.ship.x - this.eship.x);

@@ -1,4 +1,6 @@
-class MediaManager {
+import { emitter, G, model } from "../../../index";
+
+export class MediaManager {
   constructor(config) {
     this.scene = config.scene;
     emitter.on(G.PLAY_SOUND, this.playSound, this);
@@ -17,14 +19,14 @@ class MediaManager {
 
   playSound(key) {
     if (model.soundOn == true) {
-      let sound = this.scene.sound.add(key);
+      let sound = key;
       sound.play();
     }
   }
 
-  setBackgroundMusic(key) {
+  setBackgroundMusic(sound) {
     if (model.musicOn == true) {
-      this.background = this.scene.sound.add(key, { volume: 0.5, loop: true });
+      this.background = sound;
       this.background.play();
     }
   }

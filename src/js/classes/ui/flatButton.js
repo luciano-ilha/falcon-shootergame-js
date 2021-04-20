@@ -1,4 +1,6 @@
-class FlatButton extends Phaser.GameObjects.Container {
+import { emitter, model } from "../../../index";
+
+export class FlatButton extends Phaser.GameObjects.Container {
   constructor(config) {
     if (!config.scene) {
       console.log("missing scene!");

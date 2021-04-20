@@ -1,4 +1,7 @@
-class ToggleButton extends Phaser.GameObjects.Container {
+import { emitter } from "../../../index";
+import { Align } from "../../classes/util/align";
+
+export class ToggleButton extends Phaser.GameObjects.Container {
   constructor(config) {
     super(config.scene);
     this.scene = config.scene;
@@ -52,7 +55,6 @@ class ToggleButton extends Phaser.GameObjects.Container {
     this.value = !this.value;
     this.setIcons();
     if (this.event) {
-      console.log(this.value);
       emitter.emit(this.event, this.value);
     }
   }

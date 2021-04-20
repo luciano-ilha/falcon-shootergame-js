@@ -1,11 +1,16 @@
-class SceneOver extends Phaser.Scene {
+import { emitter } from "../../index";
+import { AlignGrid } from "../classes/util/alignGrid";
+import { Align } from "../classes/util/align";
+import { FlatButton } from "../classes/ui/flatButton";
+
+export class SceneOver extends Phaser.Scene {
   constructor() {
     super("SceneOver");
   }
 
   preload() {
-    this.load.image("button1", "/images/ui/buttons/2/1.png");
-    this.load.image("title", "/images/title.png");
+    this.load.image("button1", "/src/images/ui/buttons/2/1.png");
+    this.load.image("title", "/src/images/title.png");
   }
 
   create() {

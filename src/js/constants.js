@@ -1,4 +1,4 @@
-class Constants {
+export class Constants {
   constructor() {
     this.SET_SCORE = "setScore";
     this.UP_POINTS = "upPoints";

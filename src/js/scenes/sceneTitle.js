@@ -1,15 +1,21 @@
-class SceneTitle extends Phaser.Scene {
+import { emitter, game, mediaManager } from "../../index";
+import { AlignGrid } from "../classes/util/alignGrid";
+import { Align } from "../classes/util/align";
+import { FlatButton } from "../classes/ui/flatButton";
+import { MediaManager } from "../classes/util/mediaManager";
+
+export class SceneTitle extends Phaser.Scene {
   constructor() {
     super("SceneTitle");
   }
 
   preload() {
-    this.load.image("title", "/images/title.png");
+    this.load.image("title", "/src/images/title.png");
   }
 
   create() {
-    emitter = new Phaser.Events.EventEmitter();
-    controller = new Controller();
+    // emitter = new Phaser.Events.EventEmitter();
+    // controller = new Controller();
 
     this.alignGrid = new AlignGrid({ rows: 11, cols: 11, scene: this });
     // this.alignGrid.showNumbers();

@@ -1,4 +1,6 @@
-class Controller {
+import { emitter, G, model } from "../../../index";
+
+export class Controller {
   constructor() {
     emitter.on(G.SET_SCORE, this.setScore);
     emitter.on(G.UP_POINTS, this.upPoints);

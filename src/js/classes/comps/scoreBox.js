@@ -1,4 +1,5 @@
-class ScoreBox extends Phaser.GameObjects.Container {
+import { emitter, G } from "../../../index";
+export class ScoreBox extends Phaser.GameObjects.Container {
   constructor(config) {
     super(config.scene);
     this.scene = config.scene;

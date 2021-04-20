@@ -1,4 +1,7 @@
-class Model {
+import { emitter, G } from "../../../index";
+import { mediaManager } from "../../../index";
+
+export class Model {
   constructor() {
     this._score = 0;
     this.soundOn = true;

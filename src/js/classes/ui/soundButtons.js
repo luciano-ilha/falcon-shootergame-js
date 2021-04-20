@@ -1,4 +1,7 @@
-class SoundButtons extends Phaser.GameObjects.Container {
+import { G, game, model } from "../../../index";
+import { ToggleButton } from "../../classes/ui/toggleButton";
+
+export class SoundButtons extends Phaser.GameObjects.Container {
   constructor(config) {
     super(config.scene);
     this.scene = config.scene;

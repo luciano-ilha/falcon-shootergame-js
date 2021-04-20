@@ -38,7 +38,7 @@ Falcon shooter is a game where the goal is to defeat your enemy as fast as possi
 
 - You'll need a package manager to install the dependencies listed in package.json in order to make the game work in your local machine.
 
-The project was built using yarn, so it's recommended to have yarn installed.
+The project was built using npm, so it's recommended to have npm installed.
 
 ## Getting Started
 

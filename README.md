@@ -75,9 +75,9 @@ To make sure the linters' checks using Github Actions works properly, you should
 
 👤 **Luciano Ilha Carbonel**
 
-• Github: [@Luciano Ilha](https://github.com/luciano-ilha)
-• Twitter: [@CarbonellIlha](https://twitter.com/CarbonellIlha)
-• Linkedin: [@Luciano Carbonell](https://www.linkedin.com/in/luciano-carbonell/)
+- Github: [@Luciano Ilha](https://github.com/luciano-ilha)
+- Twitter: [@CarbonellIlha](https://twitter.com/CarbonellIlha)
+- Linkedin: [@Luciano Carbonell](https://www.linkedin.com/in/luciano-carbonell/)
 
 ## 🤝 Contributing
 
@@ -91,5 +91,5 @@ Give a ⭐️ if you like this project!
 
 ## :thumbsup: Acknowledgements
 
-• Microverse
-• ThOdinProject
+- Microverse
+- ThOdinProject

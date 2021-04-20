@@ -1,5 +1,4 @@
 import { game } from "../../../index";
-
 export class Align {
   static scaleToGameW(obj, per) {
     obj.displayWidth = game.config.width * per;

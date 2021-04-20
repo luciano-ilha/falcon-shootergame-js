@@ -1,5 +1,4 @@
 import { emitter, G, model } from "../../../index";
-
 export class MediaManager {
   constructor(config) {
     this.scene = config.scene;

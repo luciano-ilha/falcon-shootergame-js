@@ -1,9 +1,7 @@
-import { emitter, controller, mediaManager, model, game, G } from "../../index";
+import { emitter, mediaManager, model, game, G } from "../../index";
 import { SoundButtons } from "../classes/ui/soundButtons";
 import { Align } from "../classes/util/align";
 import { AlignGrid } from "../classes/util/alignGrid";
-import { MediaManager } from "../classes/util/mediaManager";
-
 export class SceneMain extends Phaser.Scene {
   constructor() {
     super("SceneMain");
@@ -12,16 +10,12 @@ export class SceneMain extends Phaser.Scene {
   preload() {}
 
   create() {
-    // emitter and controller
-    // emitter = new Phaser.Events.EventEmitter();
-    // controller = new Controller();
-    // mediaManager = new MediaManager({ scene: this });
     mediaManager.setBackgroundMusic(
       this.sound.add("backgroundMusic", { volume: 0.5, loop: true })
     );
     // ships health
-    this.shields = 100;
-    this.eshields = 100;
+    this.shields = 10;
+    this.eshields = 10;
     // if player wins
     model.playerWon = true;
     // center screen

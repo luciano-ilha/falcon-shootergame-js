@@ -1,5 +1,4 @@
 import { emitter, G, model } from "../../../index";
-
 export class Controller {
   constructor() {
     emitter.on(G.SET_SCORE, this.setScore);

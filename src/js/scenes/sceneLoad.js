@@ -1,6 +1,5 @@
 import { Bar } from "../classes/comps/bar";
 import { game } from "../../index";
-
 export class SceneLoad extends Phaser.Scene {
   constructor() {
     super("SceneLoad");

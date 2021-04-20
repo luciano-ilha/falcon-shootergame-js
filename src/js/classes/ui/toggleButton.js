@@ -1,6 +1,5 @@
 import { emitter } from "../../../index";
 import { Align } from "../../classes/util/align";
-
 export class ToggleButton extends Phaser.GameObjects.Container {
   constructor(config) {
     super(config.scene);

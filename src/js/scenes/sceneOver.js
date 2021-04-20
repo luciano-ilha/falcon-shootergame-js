@@ -1,7 +1,8 @@
-import { emitter } from "../../index";
+import { emitter, game, model } from "../../index";
 import { AlignGrid } from "../classes/util/alignGrid";
 import { Align } from "../classes/util/align";
 import { FlatButton } from "../classes/ui/flatButton";
+import { SoundButtons } from "../classes/ui/soundButtons";
 
 export class SceneOver extends Phaser.Scene {
   constructor() {

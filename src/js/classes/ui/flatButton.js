@@ -1,5 +1,4 @@
 import { emitter, model } from "../../../index";
-
 export class FlatButton extends Phaser.GameObjects.Container {
   constructor(config) {
     if (!config.scene) {

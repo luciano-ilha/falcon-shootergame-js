@@ -1,5 +1,4 @@
 import { game } from "../../../index";
-
 export class AlignGrid {
   constructor(config) {
     this.config = config;

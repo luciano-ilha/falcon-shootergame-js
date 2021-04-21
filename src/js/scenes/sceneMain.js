@@ -33,8 +33,8 @@ export class SceneMain extends Phaser.Scene {
     this.eship.body.collideWorldBounds = true;
     Align.scaleToGameW(this.eship, 0.25);
     // set game bounds
-    this.background.scaleX = this.ship.scaleX * 3;
-    this.background.scaleY = this.ship.scaleY * 2.1;
+    this.background.scaleX = this.ship.scaleX * 7;
+    this.background.scaleY = this.ship.scaleY * 9;
     this.physics.world.setBounds(
       0,
       0,

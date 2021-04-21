@@ -57,6 +57,7 @@ This will install the dependencies in your local machine. This process can take 
 
 - Run `npm run build`
 - Run `npm start`
+- Choose src folder
 
 ## Testing
 

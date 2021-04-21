@@ -67,8 +67,8 @@ export class SceneMain extends Phaser.Scene {
     let sb = new SoundButtons({ scene: this });
     // scoreboard
     this.sb = new ScoreBox({ scene: this });
-    this.sb.x = game.config.width - 50;
-    this.sb.y = 50;
+    this.sb.x = game.config.width / 2.15;
+    this.sb.y = 30;
     this.sb.setScrollFactor(0);
   }
   // spawns rocks when zero

@@ -19,14 +19,6 @@ export class SceneLeaderboard extends Phaser.Scene {
     this.sb.x = game.config.width / 2;
     this.sb.y = 50;
 
-    // let title = this.add.image(0, 0, "title");
-    // Align.scaleToGameW(title, 0.8);
-    // this.alignGrid.placeAtIndex(27, title);
-    // let ship = this.add.image(0, 0, "ship");
-    // this.alignGrid.placeAtIndex(60, ship);
-    // ship.angle = 270;
-    // Align.scaleToGameW(ship, 0.2);
-
     let btnStart = new FlatButton({
       scene: this,
       key: "button1",

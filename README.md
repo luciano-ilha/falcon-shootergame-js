@@ -15,14 +15,7 @@ Falcon shooter is a game where the goal is to defeat your enemy as fast as possi
 
 ## Game Development
 
-- Explain what were your initial objectives (at the end of day 2) of the project and which ones did you (or not) achieve and why
-
-- Designing
-
-- Development
-
-- Deployment
-
+- My main goal, at the beginning, was to think how the game was going to be played and of course, the images to everything, ships, lasers and so on. I wanted to make a boss fight with different enemy and background music but it was taking me to long, after all Phaser was knew to me. I've also decided to let physics to affect ships (inertia), like when hit by a rock or each others lasers, since it is the space void =D.
 
 ## Built With
 

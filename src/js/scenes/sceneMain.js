@@ -122,8 +122,17 @@ export class SceneMain extends Phaser.Scene {
     this.eshields--;
     this.text2.setText("Enemy Shields\n" + this.eshields);
     if (this.eshields == 0) {
-      model.playerWon = true;
-      this.scene.start("SceneOver");
+      this.eship.destroy();
+      let explosion = this.add.sprite(this.eship.x, this.eship.y, "exp");
+      explosion.play("boom");
+      emitter.emit(G.PLAY_SOUND, this.sound.add("explode"));
+      this.eship = this.physics.add.sprite(this.centerX, 0, "eship");
+      this.eship.body.collideWorldBounds = true;
+      Align.scaleToGameW(this.eship, 0.25);
+      this.setColliders();
+      this.eshields = 30;
+      // model.playerWon = true;
+      // this.scene.start("SceneOver");
     }
   }
   // collisions

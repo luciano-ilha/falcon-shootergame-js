@@ -2,6 +2,7 @@ import { emitter, mediaManager, model, game, G } from "../../index";
 import { SoundButtons } from "../classes/ui/soundButtons";
 import { Align } from "../classes/util/align";
 import { AlignGrid } from "../classes/util/alignGrid";
+import { ScoreBox } from "../classes/comps/scoreBox";
 export class SceneMain extends Phaser.Scene {
   constructor() {
     super("SceneMain");
@@ -10,9 +11,11 @@ export class SceneMain extends Phaser.Scene {
   preload() {}
 
   create() {
-    mediaManager.setBackgroundMusic(
-      this.sound.add("backgroundMusic", { volume: 0.8, loop: true })
-    );
+    if (this.background == undefined) {
+      mediaManager.setBackgroundMusic(
+        this.sound.add("backgroundMusic", { volume: 0.8, loop: true })
+      );
+    }
     // ships health
     this.shields = 10;
     this.eshields = 10;
@@ -62,6 +65,11 @@ export class SceneMain extends Phaser.Scene {
     this.setColliders();
     // sfx and music buttons
     let sb = new SoundButtons({ scene: this });
+    // scoreboard
+    this.sb = new ScoreBox({ scene: this });
+    this.sb.x = game.config.width / 2;
+    this.sb.y = 50;
+    this.sb.setScrollFactor(0);
   }
   // spawns rocks when zero
   makeRocks() {

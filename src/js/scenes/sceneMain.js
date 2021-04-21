@@ -11,7 +11,7 @@ export class SceneMain extends Phaser.Scene {
 
   create() {
     mediaManager.setBackgroundMusic(
-      this.sound.add("backgroundMusic", { volume: 0.5, loop: true })
+      this.sound.add("backgroundMusic", { volume: 0.8, loop: true })
     );
     // ships health
     this.shields = 100;
@@ -27,14 +27,14 @@ export class SceneMain extends Phaser.Scene {
     // player's ship and it's config
     this.ship = this.physics.add.sprite(this.centerX, this.centerY, "ship");
     this.ship.body.collideWorldBounds = true;
-    Align.scaleToGameW(this.ship, 0.125);
+    Align.scaleToGameW(this.ship, 0.15);
     // enemy's ship
     this.eship = this.physics.add.sprite(this.centerX, 0, "eship");
     this.eship.body.collideWorldBounds = true;
     Align.scaleToGameW(this.eship, 0.25);
     // set game bounds
-    this.background.scaleX = this.ship.scaleX;
-    this.background.scaleY = this.ship.scaleY;
+    this.background.scaleX = this.ship.scaleX * 3;
+    this.background.scaleY = this.ship.scaleY * 2.1;
     this.physics.world.setBounds(
       0,
       0,
@@ -188,8 +188,8 @@ export class SceneMain extends Phaser.Scene {
 
     this.icon1 = this.add.image(0, 0, "ship");
     this.icon2 = this.add.image(0, 0, "eship");
-    Align.scaleToGameW(this.icon1, 0.05);
-    Align.scaleToGameW(this.icon2, 0.05);
+    Align.scaleToGameW(this.icon1, 0.07);
+    Align.scaleToGameW(this.icon2, 0.06);
     this.uiGrid.placeAtIndex(1.1, this.icon1);
     this.uiGrid.placeAtIndex(6.1, this.icon2);
 

@@ -19,6 +19,7 @@ export class SceneLoad extends Phaser.Scene {
       "0%",
       { color: "#ffffff", fontSize: game.config.width / 20 }
     );
+
     this.progText.setOrigin(0.5, 0.5);
     this.load.on("progress", this.onProgress, this);
     // buttons images

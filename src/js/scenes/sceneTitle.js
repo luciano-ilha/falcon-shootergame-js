@@ -23,7 +23,7 @@ export class SceneTitle extends Phaser.Scene {
     let ship = this.add.image(0, 0, "ship");
     this.alignGrid.placeAtIndex(60, ship);
     ship.angle = 270;
-    Align.scaleToGameW(ship, 0.18);
+    Align.scaleToGameW(ship, 0.2);
 
     let btnStart = new FlatButton({
       scene: this,

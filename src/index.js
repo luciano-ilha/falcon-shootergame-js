@@ -27,7 +27,7 @@ window.onload = function () {
     config = {
       type: Phaser.AUTO,
       width: 480,
-      height: 640,
+      height: window.innerHeight,
       parent: "phaser-game",
       physics: {
         default: "arcade",

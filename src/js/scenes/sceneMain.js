@@ -14,8 +14,8 @@ export class SceneMain extends Phaser.Scene {
       this.sound.add("backgroundMusic", { volume: 0.8, loop: true })
     );
     // ships health
-    this.shields = 100;
-    this.eshields = 100;
+    this.shields = 10;
+    this.eshields = 10;
     // if player wins
     model.playerWon = true;
     // center screen

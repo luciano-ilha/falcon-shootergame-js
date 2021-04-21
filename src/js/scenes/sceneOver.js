@@ -15,7 +15,7 @@ export class SceneOver extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(0, 0, "background").setOrigin(0.5, 0.5);
+    this.add.image(0, 0, "background").setOrigin(0.3, 0.3);
     this.alignGrid = new AlignGrid({ rows: 11, cols: 11, scene: this });
     // this.alignGrid.showNumbers();
 
@@ -39,21 +39,21 @@ export class SceneOver extends Phaser.Scene {
     let btnStart = new FlatButton({
       scene: this,
       key: "button1",
-      text: "Play Again!",
-      event: "start_game",
+      text: "See Leaderboard!",
+      event: "start_leaderboard",
     });
     this.alignGrid.placeAtIndex(93, btnStart);
     Align.scaleToGameW(this.winner, 0.25);
     this.winner.angle = 270;
     this.alignGrid.placeAtIndex(60, this.winner);
 
-    emitter.on("start_game", this.startGame, this);
+    emitter.on("start_leaderboard", this.startLeaderboard, this);
 
-    let sb = new SoundButtons({ scene: this });
+    // let sb = new SoundButtons({ scene: this });
   }
 
-  startGame() {
-    this.scene.start("SceneMain");
+  startLeaderboard() {
+    this.scene.start("SceneLeaderboard");
   }
 
   update() {}

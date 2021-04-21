@@ -3,6 +3,7 @@ import { SceneLoad } from "./js/scenes/sceneLoad";
 import { SceneTitle } from "./js/scenes/sceneTitle";
 import { SceneMain } from "./js/scenes/sceneMain";
 import { SceneOver } from "./js/scenes/sceneOver";
+import { SceneLeaderboard } from "./js/scenes/sceneLeaderboard";
 import { Constants } from "./js/constants";
 import { Model } from "./js/classes/mc/model";
 import { Controller } from "./js/classes/mc/controller";
@@ -35,7 +36,7 @@ window.onload = function () {
           debug: false,
         },
       },
-      scene: [SceneLoad, SceneTitle, SceneMain, SceneOver],
+      scene: [SceneLoad, SceneTitle, SceneMain, SceneOver, SceneLeaderboard],
     };
   } else {
     config = {
@@ -49,7 +50,7 @@ window.onload = function () {
           debug: false,
         },
       },
-      scene: [SceneLoad, SceneTitle, SceneMain, SceneOver],
+      scene: [SceneLoad, SceneTitle, SceneMain, SceneOver, SceneLeaderboard],
     };
   }
 

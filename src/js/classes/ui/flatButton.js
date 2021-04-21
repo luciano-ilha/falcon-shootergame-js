@@ -1,6 +1,7 @@
 import { emitter, model } from "../../../index";
 export class FlatButton extends Phaser.GameObjects.Container {
   constructor(config) {
+    super(config.scene);
     if (!config.scene) {
       console.log("missing scene!");
       return;
@@ -10,8 +11,6 @@ export class FlatButton extends Phaser.GameObjects.Container {
       console.log("missing key!");
       return;
     }
-
-    super(config.scene);
 
     this.config = config;
     this.scene = config.scene;

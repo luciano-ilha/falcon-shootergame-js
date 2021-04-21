@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  mode: "development",
+  mode: "production",
   entry: "./src/index.js",
   module: {
     rules: [
@@ -12,7 +12,7 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["env"],
+            presets: ["@babel/preset-env"],
           },
         },
       },

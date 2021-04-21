@@ -16,6 +16,7 @@ let controller = new Controller();
 let mediaManager = new MediaManager({ scene: this });
 
 window.onload = function () {
+  let config;
   let isMobile = navigator.userAgent.indexOf("Mobile");
 
   if (isMobile == -1) {
@@ -23,7 +24,7 @@ window.onload = function () {
   }
 
   if (isMobile == -1) {
-    var config = {
+    config = {
       type: Phaser.AUTO,
       width: 480,
       height: 640,
@@ -37,7 +38,7 @@ window.onload = function () {
       scene: [SceneLoad, SceneTitle, SceneMain, SceneOver],
     };
   } else {
-    var config = {
+    config = {
       type: Phaser.AUTO,
       width: window.innerWidth,
       height: window.innerHeight,
@@ -59,62 +60,3 @@ window.onload = function () {
 };
 
 export { game, model, emitter, G, controller, mediaManager };
-
-// import "phaser";
-// import { SceneLoad } from "./js/scenes/sceneLoad.js";
-// import { SceneTitle } from "./js/scenes/sceneTitle.js";
-// import { SceneMain } from "./js/scenes/sceneMain.js";
-// import { SceneOver } from "./js/scenes/sceneOver.js";
-// import { Model } from "./js/classes/mc/model.js";
-// import { Constants } from "./js/constants.js";
-// import { Controller } from "./js/classes/mc/controller.js";
-// import { MediaManager } from "./js/classes/util/mediaManager.js";
-// export let game = new Phaser.Game(config);
-// export let model = new Model();
-// export let emitter = new Phaser.Events.EventEmitter();
-// export let G = new Constants();
-// export let controller = new Controller();
-// export let mediaManager = new MediaManager({ scene: this });
-
-// window.onload = function () {
-//   let isMobile = navigator.userAgent.indexOf("Mobile");
-
-//   if (isMobile == -1) {
-//     isMobile = navigator.userAgent.indexOf("Tablet");
-//   }
-
-//   if (isMobile == -1) {
-//     var config = {
-//       type: Phaser.AUTO,
-//       width: 480,
-//       height: 640,
-//       parent: "phaser-game",
-//       physics: {
-//         default: "arcade",
-//         arcade: {
-//           debug: false,
-//         },
-//       },
-//       scene: [SceneLoad, SceneTitle, SceneMain, SceneOver],
-//     };
-//   } else {
-//     var config = {
-//       type: Phaser.AUTO,
-//       width: window.innerWidth,
-//       height: window.innerHeight,
-//       parent: "phaser-game",
-//       physics: {
-//         default: "arcade",
-//         arcade: {
-//           debug: false,
-//         },
-//       },
-//       scene: [SceneLoad, SceneTitle, SceneMain, SceneOver],
-//     };
-//   }
-
-//   // G = new Constants();
-//   // model = new Model();
-//   model.isMobile = isMobile;
-//   // game = new Phaser.Game(config);
-// };

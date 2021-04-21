@@ -17,8 +17,8 @@ export class SceneMain extends Phaser.Scene {
       );
     }
     // ships health
-    this.shields = 10;
-    this.eshields = 10;
+    this.shields = 30;
+    this.eshields = 30;
     // if player wins
     model.playerWon = true;
     // center screen
@@ -67,7 +67,7 @@ export class SceneMain extends Phaser.Scene {
     let sb = new SoundButtons({ scene: this });
     // scoreboard
     this.sb = new ScoreBox({ scene: this });
-    this.sb.x = game.config.width / 2;
+    this.sb.x = game.config.width - 50;
     this.sb.y = 50;
     this.sb.setScrollFactor(0);
   }
@@ -283,7 +283,7 @@ export class SceneMain extends Phaser.Scene {
       "ebullet"
     );
     this.ebulletGroup.add(ebullet);
-    ebullet.body.angularVelocity = 10;
+    ebullet.body.angularVelocity = 50;
     this.physics.moveTo(ebullet, this.ship.x, this.ship.y, 150);
     emitter.emit(G.PLAY_SOUND, this.sound.add("enemyShoot"));
   }

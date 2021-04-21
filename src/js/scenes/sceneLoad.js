@@ -35,10 +35,7 @@ export class SceneLoad extends Phaser.Scene {
       "/src/audio/enemyShoot.ogg",
     ]);
     this.load.audio("laser", ["/src/audio/laser.wav", "/src/audio/laser.ogg"]);
-    this.load.audio("backgroundMusic", [
-      "/src/audio/background.mp3",
-      "/src/audio/background.ogg",
-    ]);
+    this.load.audio("backgroundMusic", "/src/audio/background.mp3");
     // sounds buttons
     this.load.image("toggleBack", "/src/images/ui/toggles/4.png");
     this.load.image("sfxOff", "/src/images/ui/icons/sfx_off.png");

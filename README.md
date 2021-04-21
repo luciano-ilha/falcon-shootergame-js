@@ -2,7 +2,7 @@
 
 This project is a shooter game built with HTML, CSS(Sass), JavaScript and Webpack.
 
-![Screenshot](assets/shootergamescshot.png)
+![Screenshot](src/images/shootergamescshot.png)
 
 # Live Demo
 

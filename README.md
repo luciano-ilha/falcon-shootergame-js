@@ -16,6 +16,10 @@ Falcon shooter is a game where the goal is to defeat your enemy as fast as possi
 ## Game Development
 
 - My main goal, at the beginning, was to think how the game was going to be played and of course, the images to everything, ships, lasers and so on. I wanted to make a boss fight with different enemy and background music but it was taking me to long, after all Phaser was knew to me. I've also decided to let physics to affect ships (inertia), like when hit by a rock or each others lasers, since it is the space void =D.
+<<<<<<< HEAD
+=======
+
+>>>>>>> 08e1c5f57a1793377e6735a6164372e72406b6d2
 
 ## Built With
 

@@ -23,8 +23,7 @@ export class SceneLoad extends Phaser.Scene {
     this.progText.setOrigin(0.5, 0.5);
     this.load.on("progress", this.onProgress, this);
     // buttons images
-    this.load.image("button1", "/src/images/ui/buttons/2/4.png");
-    this.load.image("button2", "/src/images/ui/buttons/2/5.png");
+    this.load.image("button1", "/src/images/ui/buttons/2/6.png");
     // audio
     this.load.audio("explode", [
       "/src/audio/explode.wav",
@@ -45,6 +44,7 @@ export class SceneLoad extends Phaser.Scene {
     // ships and rocks
     this.load.image("ship", "/src/images/player.png");
     this.load.image("background", "/src/images/background.jpg");
+    this.load.image("leaderboards", "/src/images/leaderboards-title.png");
 
     this.load.spritesheet("rocks", "/src/images/rocks.png", {
       frameWidth: 125,

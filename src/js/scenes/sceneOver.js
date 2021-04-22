@@ -23,10 +23,15 @@ export class SceneOver extends Phaser.Scene {
     Align.scaleToGameW(title, 0.8);
     this.alignGrid.placeAtIndex(16, title);
 
-    this.winnerText = this.add.text(0, 0, "WINNER", {
-      fontSize: game.config.width / 10,
-      color: "#3fe213",
-    });
+    this.winnerText = this.add.text(
+      0,
+      0,
+      "Resist longer soldier!\n   This is the way",
+      {
+        fontSize: game.config.width / 15,
+        color: "#3fe213",
+      }
+    );
     this.winnerText.setOrigin(0.5, 0.5);
     this.alignGrid.placeAtIndex(38, this.winnerText);
 
@@ -39,7 +44,7 @@ export class SceneOver extends Phaser.Scene {
     let btnStart = new FlatButton({
       scene: this,
       key: "button1",
-      text: "See Leaderboard!",
+      text: "SEE LEADERBOARD!",
       event: "start_leaderboard",
     });
     this.alignGrid.placeAtIndex(93, btnStart);
@@ -49,7 +54,7 @@ export class SceneOver extends Phaser.Scene {
 
     emitter.on("start_leaderboard", this.startLeaderboard, this);
 
-    // let sb = new SoundButtons({ scene: this });
+    let sb = new SoundButtons({ scene: this });
   }
 
   startLeaderboard() {

@@ -17,8 +17,8 @@ export class SceneMain extends Phaser.Scene {
       );
     }
     // ships health
-    this.shields = 1;
-    this.eshields = 1;
+    this.shields = 150;
+    this.eshields = 100;
     // if player wins
     model.playerWon = true;
     // center screen

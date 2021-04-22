@@ -13,7 +13,7 @@ export class SceneMain extends Phaser.Scene {
   create() {
     if (this.background == undefined) {
       mediaManager.setBackgroundMusic(
-        this.sound.add("backgroundMusic", { volume: 0.8, loop: true })
+        this.sound.add("backgroundMusic", { volume: 0.2, loop: true })
       );
     }
     // ships health
@@ -120,12 +120,13 @@ export class SceneMain extends Phaser.Scene {
   // enemy's health
   downEnemy() {
     this.eshields--;
+    emitter.emit(G.UP_POINTS, 1);
     this.text2.setText("Enemy Shields\n" + this.eshields);
     if (this.eshields == 0) {
       this.eship.destroy();
       let explosion = this.add.sprite(this.eship.x, this.eship.y, "exp");
       explosion.play("boom");
-      emitter.emit(G.PLAY_SOUND, this.sound.add("explode"));
+      emitter.emit(G.PLAY_SOUND, this.sound.add("explode", { volume: 0.1 }));
       this.eship = this.physics.add.sprite(this.centerX, 0, "eship");
       this.eship.body.collideWorldBounds = true;
       Align.scaleToGameW(this.eship, 0.25);
@@ -134,6 +135,26 @@ export class SceneMain extends Phaser.Scene {
       // model.playerWon = true;
       // this.scene.start("SceneOver");
     }
+  }
+  // bullet vs player actions
+  damagePlayer(ship, bullet) {
+    let explosion = this.add.sprite(this.ship.x, this.ship.y, "exp");
+    explosion.play("boom");
+    emitter.emit(G.PLAY_SOUND, this.sound.add("explode", { volume: 0.1 }));
+    bullet.destroy();
+    this.downPlayer();
+  }
+  // bullet vs enemy actions
+  damageEnemy(ship, bullet) {
+    let explosion = this.add.sprite(bullet.x, bullet.y, "exp");
+    explosion.play("boom");
+    emitter.emit(G.PLAY_SOUND, this.sound.add("explode", { volume: 0.1 }));
+    bullet.destroy();
+    this.downEnemy();
+
+    let angle = this.physics.moveTo(this.eship, this.ship.x, this.ship.y, 100);
+    angle = this.toDegrees(angle);
+    this.eship.angle = angle;
   }
   // collisions
   setColliders() {
@@ -183,6 +204,63 @@ export class SceneMain extends Phaser.Scene {
       this
     );
   }
+  // enemy pursue player
+  enemyChase() {
+    let angle = this.physics.moveTo(this.eship, this.ship.x, this.ship.y, 60);
+    angle = this.toDegrees(angle);
+    this.eship.angle = angle;
+  }
+  // rock - player actions
+  rockHitPlayer(ship, rock) {
+    let explosion = this.add.sprite(rock.x, rock.y, "exp");
+    explosion.play("boom");
+    emitter.emit(G.PLAY_SOUND, this.sound.add("explode", { volume: 0.1 }));
+
+    rock.destroy();
+    this.makeRocks();
+    this.downPlayer();
+  }
+  // rock vs enemy actions
+  rockHitEnemy(ship, rock) {
+    let explosion = this.add.sprite(rock.x, rock.y, "exp");
+    explosion.play("boom");
+    emitter.emit(G.PLAY_SOUND, this.sound.add("explode", { volume: 0.1 }));
+    rock.destroy();
+    this.makeRocks();
+  }
+  // // bullet vs rocks actions
+  destroyRock(bullet, rock) {
+    bullet.destroy();
+    let explosion = this.add.sprite(rock.x, rock.y, "exp");
+    explosion.play("boom");
+    emitter.emit(G.PLAY_SOUND, this.sound.add("explode", { volume: 0.1 }));
+    rock.destroy();
+    this.makeRocks();
+  }
+  // gets angle to enemy's pursue direction
+  getDirFromAngle(angle) {
+    let rads = (angle * Math.PI) / 180;
+    let tx = Math.cos(rads);
+    let ty = Math.sin(rads);
+    return { tx, ty };
+  }
+  // enemy fire
+  fireEBullet() {
+    let elapsed = Math.abs(this.lastEBullet - this.getTimer());
+    if (elapsed < 500) {
+      return;
+    }
+    this.lastEBullet = this.getTimer();
+    let ebullet = this.physics.add.sprite(
+      this.eship.x,
+      this.eship.y,
+      "ebullet"
+    );
+    this.ebulletGroup.add(ebullet);
+    ebullet.body.angularVelocity = 50;
+    this.physics.moveTo(ebullet, this.ship.x, this.ship.y, 150);
+    emitter.emit(G.PLAY_SOUND, this.sound.add("enemyShoot", { volume: 0.1 }));
+  }
   // health
   makeInfo() {
     this.text1 = this.add.text(0, 0, "Shields\n100", {
@@ -218,84 +296,6 @@ export class SceneMain extends Phaser.Scene {
     this.icon1.setScrollFactor(0);
     this.icon2.setScrollFactor(0);
   }
-  // enemy pursue player
-  enemyChase() {
-    let angle = this.physics.moveTo(this.eship, this.ship.x, this.ship.y, 60);
-    angle = this.toDegrees(angle);
-    this.eship.angle = angle;
-  }
-  // rock - player actions
-  rockHitPlayer(ship, rock) {
-    let explosion = this.add.sprite(rock.x, rock.y, "exp");
-    explosion.play("boom");
-    emitter.emit(G.PLAY_SOUND, this.sound.add("explode"));
-
-    rock.destroy();
-    this.makeRocks();
-    this.downPlayer();
-  }
-  // rock vs enemy actions
-  rockHitEnemy(ship, rock) {
-    let explosion = this.add.sprite(rock.x, rock.y, "exp");
-    explosion.play("boom");
-    emitter.emit(G.PLAY_SOUND, this.sound.add("explode"));
-    rock.destroy();
-    this.makeRocks();
-    this.downEnemy();
-  }
-  // bullet vs player actions
-  damagePlayer(ship, bullet) {
-    let explosion = this.add.sprite(this.ship.x, this.ship.y, "exp");
-    explosion.play("boom");
-    emitter.emit(G.PLAY_SOUND, this.sound.add("explode"));
-    bullet.destroy();
-    this.downPlayer();
-  }
-  // bullet vs enemy actions
-  damageEnemy(ship, bullet) {
-    let explosion = this.add.sprite(bullet.x, bullet.y, "exp");
-    explosion.play("boom");
-    emitter.emit(G.PLAY_SOUND, this.sound.add("explode"));
-    bullet.destroy();
-    this.downEnemy();
-
-    let angle = this.physics.moveTo(this.eship, this.ship.x, this.ship.y, 100);
-    angle = this.toDegrees(angle);
-    this.eship.angle = angle;
-  }
-  // // bullet vs rocks actions
-  destroyRock(bullet, rock) {
-    bullet.destroy();
-    let explosion = this.add.sprite(rock.x, rock.y, "exp");
-    explosion.play("boom");
-    emitter.emit(G.PLAY_SOUND, this.sound.add("explode"));
-    rock.destroy();
-    this.makeRocks();
-  }
-  // gets angle to enemy's pursue direction
-  getDirFromAngle(angle) {
-    let rads = (angle * Math.PI) / 180;
-    let tx = Math.cos(rads);
-    let ty = Math.sin(rads);
-    return { tx, ty };
-  }
-  // enemy fire
-  fireEBullet() {
-    let elapsed = Math.abs(this.lastEBullet - this.getTimer());
-    if (elapsed < 500) {
-      return;
-    }
-    this.lastEBullet = this.getTimer();
-    let ebullet = this.physics.add.sprite(
-      this.eship.x,
-      this.eship.y,
-      "ebullet"
-    );
-    this.ebulletGroup.add(ebullet);
-    ebullet.body.angularVelocity = 50;
-    this.physics.moveTo(ebullet, this.ship.x, this.ship.y, 150);
-    emitter.emit(G.PLAY_SOUND, this.sound.add("enemyShoot"));
-  }
   // time reference for enemy fire
   getTimer() {
     let d = new Date();
@@ -308,25 +308,25 @@ export class SceneMain extends Phaser.Scene {
 
   update() {
     if (this.cursors.left.isDown) {
-      this.ship.x -= 2;
+      this.ship.x -= 2.3;
       this.ship.angle = -180;
 
       this.enemyChase();
     }
     if (this.cursors.up.isDown) {
-      this.ship.y -= 2;
+      this.ship.y -= 2.3;
       this.ship.angle = -90;
 
       this.enemyChase();
     }
     if (this.cursors.right.isDown) {
-      this.ship.x += 2;
+      this.ship.x += 2.3;
       this.ship.angle = 0;
 
       this.enemyChase();
     }
     if (this.cursors.down.isDown) {
-      this.ship.y += 2;
+      this.ship.y += 2.3;
       this.ship.angle = 90;
 
       this.enemyChase();
@@ -364,7 +364,7 @@ export class SceneMain extends Phaser.Scene {
       bullet.body.setVelocity(dirObj.tx * 350, dirObj.ty * 350);
 
       this.enemyChase();
-      emitter.emit(G.PLAY_SOUND, this.sound.add("laser"));
+      emitter.emit(G.PLAY_SOUND, this.sound.add("laser", { volume: 0.1 }));
     }
 
     let distX = Math.abs(this.ship.x - this.eship.x);

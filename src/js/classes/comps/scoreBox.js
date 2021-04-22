@@ -1,4 +1,4 @@
-import { emitter, G } from "../../../index";
+import { emitter, G, model } from "../../../index";
 export class ScoreBox extends Phaser.GameObjects.Container {
   constructor(config) {
     super(config.scene);

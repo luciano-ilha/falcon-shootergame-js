@@ -3,7 +3,6 @@ export class Controller {
   constructor() {
     emitter.on(G.SET_SCORE, this.setScore);
     emitter.on(G.UP_POINTS, this.upPoints);
-    emitter.on(G.DOWN_POINTS, this.downPoints);
     emitter.on(G.TOGGLE_SOUND, this.toggleSound);
     emitter.on(G.TOGGLE_MUSIC, this.toggleMusic);
   }
@@ -23,12 +22,6 @@ export class Controller {
   upPoints(points) {
     let score = model.score;
     score += points;
-    model.score = score;
-  }
-
-  downPoints(points) {
-    let score = model.score;
-    score -= points;
     model.score = score;
   }
 }

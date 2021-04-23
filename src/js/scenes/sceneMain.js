@@ -17,8 +17,8 @@ export class SceneMain extends Phaser.Scene {
       );
     }
     // ships health
-    this.shields = 150;
-    this.eshields = 100;
+    this.shields = 10;
+    this.eshields = 10;
     // if player wins
     model.playerWon = true;
     // center screen
@@ -66,10 +66,10 @@ export class SceneMain extends Phaser.Scene {
     // sfx and music buttons
     let sb = new SoundButtons({ scene: this });
     // scoreboard
-    this.sb = new ScoreBox({ scene: this });
-    this.sb.x = game.config.width / 2.15;
-    this.sb.y = 30;
-    this.sb.setScrollFactor(0);
+    this.scoreBoard = new ScoreBox({ scene: this });
+    this.scoreBoard.x = game.config.width / 2.15;
+    this.scoreBoard.y = 30;
+    this.scoreBoard.setScrollFactor(0);
   }
   // spawns rocks when zero
   makeRocks() {
@@ -121,6 +121,7 @@ export class SceneMain extends Phaser.Scene {
   downEnemy() {
     this.eshields--;
     emitter.emit(G.UP_POINTS, 1);
+    this.scoreBoard.text1.setText("SCORE:" + model.score);
     this.text2.setText("Enemy Shields\n" + this.eshields);
     if (this.eshields == 0) {
       this.eship.destroy();
@@ -131,9 +132,7 @@ export class SceneMain extends Phaser.Scene {
       this.eship.body.collideWorldBounds = true;
       Align.scaleToGameW(this.eship, 0.25);
       this.setColliders();
-      this.eshields = 30;
-      // model.playerWon = true;
-      // this.scene.start("SceneOver");
+      this.eshields = 10;
     }
   }
   // bullet vs player actions

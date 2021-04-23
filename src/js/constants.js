@@ -3,7 +3,6 @@ export class Constants {
     this.SET_SCORE = "setScore";
     this.UP_POINTS = "upPoints";
     this.DOWN_POINTS = "downPoints";
-    this.SCORE_UPDATED = "scoreUpdated";
     this.PLAY_SOUND = "playSound";
     this.MUSIC_CHANGED = "musicChanged";
     this.TOGGLE_SOUND = "toggleSound";

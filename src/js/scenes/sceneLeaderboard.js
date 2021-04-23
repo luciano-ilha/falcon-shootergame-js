@@ -1,4 +1,4 @@
-import { emitter, game } from "../../index";
+import { emitter, game, model } from "../../index";
 import { AlignGrid } from "../classes/util/alignGrid";
 import { Align } from "../classes/util/align";
 import { FlatButton } from "../classes/ui/flatButton";
@@ -34,58 +34,11 @@ export class SceneLeaderboard extends Phaser.Scene {
     this.alignGrid.placeAtIndex(93, btnStart);
     emitter.on("start_game", this.startGame, this);
 
-    // const data = async () => {
-    //   try {
-    //     const fetch = await LeaderboardContent.getScores();
-    //     let array = fetch.result;
-    //     array = array.sort((a, b) => b.score - a.score);
-    //     for (let i = 0; i < 9; i += 1) {
-    //       let color = "";
-    //       switch (i) {
-    //         case 0:
-    //           color = "yellow";
-    //           break;
-    //         case 1:
-    //           color = "gray";
-    //           break;
-    //         case 2:
-    //           color = "red";
-    //           break;
-    //         default:
-    //           color = "green";
-    //       }
-    //       if (array[i]) {
-    //         listing[i] = { user: "", score: "" };
-    //         listing[i].user = this.add
-    //           .text(500, 108 + 40 * i, `${array[i].user}`, {
-    //             color,
-    //             fontSize: "33px",
-    //             fontWeight: "bold",
-    //             fontFamily: "sans-serif",
-    //           })
-    //           .setOrigin(1, 0);
-
-    //         listing[i].score = this.add
-    //           .text(740, 108 + 40 * i, `${array[i].score}`, {
-    //             color,
-    //             fontSize: "33px",
-    //             fontWeight: "bold",
-    //             fontFamily: "sans-serif",
-    //           })
-    //           .setOrigin(1, 0);
-    //       }
-    //     }
-    //     return array;
-    //   } catch (err) {
-    //     return err;
-    //   }
-    // };
-
-    // data();
     let sb = new SoundButtons({ scene: this });
   }
 
   startGame() {
+    model.score = 0;
     this.scene.start("SceneMain");
   }
 

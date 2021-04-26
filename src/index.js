@@ -9,55 +9,40 @@ import { Model } from "./js/classes/mc/model";
 import { Controller } from "./js/classes/mc/controller";
 import { MediaManager } from "./js/classes/util/mediaManager";
 
+const body = document.getElementById("body");
+const hide = document.getElementById("hide");
+const name = document.getElementById("name");
+const submit = document.getElementById("submit");
+
 let game;
-let model;
+
+submit.onclick = () => {
+  localStorage.setItem("playerName", name.value);
+  hide.style.display = "none";
+  body.classList.remove("center");
+  body.style.background = "black";
+  game = new Phaser.Game(config);
+};
+
+const config = {
+  type: Phaser.AUTO,
+  width: 480,
+  height: 640,
+  parent: "phaser-game",
+  physics: {
+    default: "arcade",
+    arcade: {
+      debug: false,
+    },
+  },
+  scene: [SceneLoad, SceneTitle, SceneMain, SceneOver, SceneLeaderboard],
+};
+
+let playerName = localStorage.getItem("playerName");
+let model = new Model();
 let emitter = new Phaser.Events.EventEmitter();
 let G = new Constants();
 let controller = new Controller();
 let mediaManager = new MediaManager({ scene: this });
 
-window.onload = function () {
-  let config;
-  let isMobile = navigator.userAgent.indexOf("Mobile");
-
-  if (isMobile == -1) {
-    isMobile = navigator.userAgent.indexOf("Tablet");
-  }
-
-  if (isMobile == -1) {
-    config = {
-      type: Phaser.AUTO,
-      width: 480,
-      height: window.innerHeight,
-      parent: "phaser-game",
-      physics: {
-        default: "arcade",
-        arcade: {
-          debug: false,
-        },
-      },
-      scene: [SceneLoad, SceneTitle, SceneMain, SceneOver, SceneLeaderboard],
-    };
-  } else {
-    config = {
-      type: Phaser.AUTO,
-      width: window.innerWidth,
-      height: window.innerHeight,
-      parent: "phaser-game",
-      physics: {
-        default: "arcade",
-        arcade: {
-          debug: false,
-        },
-      },
-      scene: [SceneLoad, SceneTitle, SceneMain, SceneOver, SceneLeaderboard],
-    };
-  }
-
-  // G = new Constants();
-  model = new Model();
-  model.isMobile = isMobile;
-  game = new Phaser.Game(config);
-};
-
-export { game, model, emitter, G, controller, mediaManager };
+export { game, model, emitter, G, controller, mediaManager, playerName };

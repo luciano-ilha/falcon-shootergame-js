@@ -38,6 +38,8 @@ const config = {
   scene: [SceneLoad, SceneTitle, SceneMain, SceneOver, SceneLeaderboard],
 };
 
+let podiumNames = [];
+let podiumScores = [];
 let playerName = localStorage.getItem("playerName");
 let model = new Model();
 let emitter = new Phaser.Events.EventEmitter();
@@ -45,4 +47,14 @@ let G = new Constants();
 let controller = new Controller();
 let mediaManager = new MediaManager({ scene: this });
 
-export { game, model, emitter, G, controller, mediaManager, playerName };
+export {
+  game,
+  model,
+  emitter,
+  G,
+  controller,
+  mediaManager,
+  playerName,
+  podiumNames,
+  podiumScores,
+};

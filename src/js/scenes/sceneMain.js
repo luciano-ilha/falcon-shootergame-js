@@ -11,13 +11,13 @@ export class SceneMain extends Phaser.Scene {
   preload() {}
 
   create() {
-    if (this.background == undefined) {
-      mediaManager.setBackgroundMusic(
-        this.sound.add("backgroundMusic", { volume: 0.2, loop: true })
-      );
-    }
+    // if (this.background == undefined) {
+    //   mediaManager.setBackgroundMusic(
+    //     this.sound.add("backgroundMusic", { volume: 0.2, loop: true })
+    //   );
+    // }
     // ships health
-    this.shields = 10;
+    this.shields = 1;
     this.eshields = 10;
     // if player wins
     model.playerWon = true;

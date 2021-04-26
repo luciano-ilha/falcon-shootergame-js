@@ -1,6 +1,6 @@
 const LeaderboardContent = {
   URL:
-    "https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/JuiTJsSvGpUjqxus8duh/scores",
+    "https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/ESYau4Rpn7HGusloUq/scores",
   submitScore: (username, score) => {
     fetch(LeaderboardContent.URL, {
       method: "POST",

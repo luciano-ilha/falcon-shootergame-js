@@ -35,7 +35,6 @@ export class SceneLeaderboard extends Phaser.Scene {
     );
     this.playerScoreText.setOrigin(0.5, 0.5);
     this.alignGrid.placeAtIndex(38, this.playerScoreText);
-
     // Second Place
     this.playerScoreText = this.add.text(
       0,
@@ -48,7 +47,6 @@ export class SceneLeaderboard extends Phaser.Scene {
     );
     this.playerScoreText.setOrigin(0.5, 0.5);
     this.alignGrid.placeAtIndex(49, this.playerScoreText);
-
     // Third Place
     this.playerScoreText = this.add.text(
       0,
@@ -61,7 +59,7 @@ export class SceneLeaderboard extends Phaser.Scene {
     );
     this.playerScoreText.setOrigin(0.5, 0.5);
     this.alignGrid.placeAtIndex(60, this.playerScoreText);
-
+    // start game button
     let btnStart = new FlatButton({
       scene: this,
       key: "button1",
@@ -70,7 +68,7 @@ export class SceneLeaderboard extends Phaser.Scene {
     });
     this.alignGrid.placeAtIndex(93, btnStart);
     emitter.on("start_game", this.startGame, this);
-
+    // sound buttons
     let sb = new SoundButtons({ scene: this });
   }
 

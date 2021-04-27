@@ -34,7 +34,8 @@ let mediaManager = new MediaManager({ scene: this });
 // game
 let game;
 // user input
-submit.onclick = () => {
+submit.onclick = (e) => {
+  e.preventDefault();
   localStorage.setItem("playerName", name.value);
   hide.style.display = "none";
   game = new Phaser.Game(config);

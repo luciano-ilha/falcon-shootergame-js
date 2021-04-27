@@ -128,7 +128,7 @@ export class SceneMain extends Phaser.Scene {
     if (this.shields == 0) {
       model.playerWon = false;
       this.submScore();
-      model.score = 0;
+      emitter.emit(G.SET_SCORE, 0);
       this.scene.start("SceneOver");
     }
   }

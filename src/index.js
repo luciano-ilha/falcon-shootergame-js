@@ -12,24 +12,9 @@ import { MediaManager } from "./js/classes/util/mediaManager";
 const hide = document.getElementById("hide");
 const name = document.getElementById("name");
 const submit = document.getElementById("submit");
-// game and config
-let game;
-const config = {
-  type: Phaser.AUTO,
-  width: 480,
-  height: 640,
-  physics: {
-    default: "arcade",
-    arcade: {
-      debug: false,
-    },
-  },
-  scene: [SceneLoad, SceneTitle, SceneMain, SceneOver, SceneLeaderboard],
-};
 // important global var
 let podiumNames = [];
 let podiumScores = [];
-let playerName = localStorage.getItem("playerName");
 let model = new Model();
 let emitter = new Phaser.Events.EventEmitter();
 let G = new Constants();
@@ -46,12 +31,26 @@ let mediaManager = new MediaManager({ scene: this });
 //   hide.style.display = "none";
 //   game = new Phaser.Game(config);
 // }
-
+// game
+let game;
 // user input
 submit.onclick = () => {
   localStorage.setItem("playerName", name.value);
   hide.style.display = "none";
   game = new Phaser.Game(config);
+};
+// config
+const config = {
+  type: Phaser.AUTO,
+  width: 480,
+  height: 640,
+  physics: {
+    default: "arcade",
+    arcade: {
+      debug: false,
+    },
+  },
+  scene: [SceneLoad, SceneTitle, SceneMain, SceneOver, SceneLeaderboard],
 };
 
 export {
@@ -61,7 +60,6 @@ export {
   G,
   controller,
   mediaManager,
-  playerName,
   podiumNames,
   podiumScores,
 };

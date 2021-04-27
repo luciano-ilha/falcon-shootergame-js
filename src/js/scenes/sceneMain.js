@@ -6,7 +6,6 @@ import {
   G,
   podiumNames,
   podiumScores,
-  playerName,
 } from "../../index";
 import { SoundButtons } from "../classes/ui/soundButtons";
 import { Align } from "../classes/util/align";
@@ -134,7 +133,10 @@ export class SceneMain extends Phaser.Scene {
   }
   // submit score
   submScore() {
-    LeaderboardContent.submitScore(playerName, model.score);
+    LeaderboardContent.submitScore(
+      localStorage.getItem("playerName"),
+      model.score
+    );
   }
   // enemy's health
   downEnemy() {

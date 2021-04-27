@@ -1,8 +1,7 @@
-import { emitter, game, podiumNames, podiumScores } from "../../index";
+import { emitter, game, model, podiumNames, podiumScores } from "../../index";
 import { AlignGrid } from "../classes/util/alignGrid";
 import { Align } from "../classes/util/align";
 import { FlatButton } from "../classes/ui/flatButton";
-import { LeaderboardContent } from "../../api/fetch";
 import { SoundButtons } from "../classes/ui/soundButtons";
 
 export class SceneLeaderboard extends Phaser.Scene {
@@ -15,22 +14,16 @@ export class SceneLeaderboard extends Phaser.Scene {
   create() {
     this.add.image(0, 0, "background").setOrigin(0.3, 0.3);
     this.alignGrid = new AlignGrid({ rows: 11, cols: 11, scene: this });
+    // this.alignGrid.showNumbers();
 
     let leadTitle = this.add.image(0, 0, "leaderboards");
     Align.scaleToGameW(leadTitle, 0.8);
     this.alignGrid.placeAtIndex(16, leadTitle);
 
-    // LeaderboardContent.submitScore(playerName, model.score);
+    console.log("podium NAMES inside scene leaderboard", podiumNames);
+    console.log("podium SCORES inside scene leaderboard", podiumScores);
 
-    this.leaderboard().then((data) => {
-      data.forEach((data) => {
-        podiumNames.push(data.user);
-        podiumScores.push(data.score);
-      });
-    });
-    console.log(podiumNames);
-    console.log(podiumScores);
-
+    // First Place
     this.playerScoreText = this.add.text(
       0,
       0,
@@ -43,6 +36,32 @@ export class SceneLeaderboard extends Phaser.Scene {
     this.playerScoreText.setOrigin(0.5, 0.5);
     this.alignGrid.placeAtIndex(38, this.playerScoreText);
 
+    // Second Place
+    this.playerScoreText = this.add.text(
+      0,
+      0,
+      `${podiumNames[1]} - ${podiumScores[1]}`,
+      {
+        fontSize: game.config.width / 15,
+        color: "#3fe213",
+      }
+    );
+    this.playerScoreText.setOrigin(0.5, 0.5);
+    this.alignGrid.placeAtIndex(49, this.playerScoreText);
+
+    // Third Place
+    this.playerScoreText = this.add.text(
+      0,
+      0,
+      `${podiumNames[2]} - ${podiumScores[2]}`,
+      {
+        fontSize: game.config.width / 15,
+        color: "#3fe213",
+      }
+    );
+    this.playerScoreText.setOrigin(0.5, 0.5);
+    this.alignGrid.placeAtIndex(60, this.playerScoreText);
+
     let btnStart = new FlatButton({
       scene: this,
       key: "button1",
@@ -53,17 +72,6 @@ export class SceneLeaderboard extends Phaser.Scene {
     emitter.on("start_game", this.startGame, this);
 
     let sb = new SoundButtons({ scene: this });
-  }
-
-  async leaderboard() {
-    try {
-      const fetch = await LeaderboardContent.getScores();
-      let array = fetch.result;
-      array = array.sort((a, b) => b.score - a.score);
-      return array;
-    } catch (err) {
-      return err;
-    }
   }
 
   startGame() {

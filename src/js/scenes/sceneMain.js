@@ -1,8 +1,18 @@
-import { emitter, mediaManager, model, game, G } from "../../index";
+import {
+  emitter,
+  mediaManager,
+  model,
+  game,
+  G,
+  podiumNames,
+  podiumScores,
+  playerName,
+} from "../../index";
 import { SoundButtons } from "../classes/ui/soundButtons";
 import { Align } from "../classes/util/align";
 import { AlignGrid } from "../classes/util/alignGrid";
 import { ScoreBox } from "../classes/comps/scoreBox";
+import { LeaderboardContent } from "../../api/fetch";
 export class SceneMain extends Phaser.Scene {
   constructor() {
     super("SceneMain");
@@ -11,16 +21,18 @@ export class SceneMain extends Phaser.Scene {
   preload() {}
 
   create() {
+    // reset leaderboard
+    podiumNames.length = 0;
+    podiumScores.length = 0;
+    // play background music
     // if (this.background == undefined) {
     //   mediaManager.setBackgroundMusic(
     //     this.sound.add("backgroundMusic", { volume: 0.2, loop: true })
     //   );
     // }
     // ships health
-    this.shields = 1;
+    this.shields = 10;
     this.eshields = 10;
-    // if player wins
-    model.playerWon = true;
     // center screen
     this.centerX = this.game.config.width / 2;
     this.centerY = this.game.config.height / 2;
@@ -58,6 +70,12 @@ export class SceneMain extends Phaser.Scene {
     this.bulletGroup = this.physics.add.group();
     this.ebulletGroup = this.physics.add.group();
     this.rockGroup = this.physics.add.group();
+    // scoreboard
+    this.scoreBoard = new ScoreBox({ scene: this });
+    this.scoreBoard.x = game.config.width / 2.15;
+    this.scoreBoard.y = 30;
+    this.scoreBoard.setScrollFactor(0);
+    // meteors
     this.makeRocks();
     // in game health and ship icons
     this.makeInfo();
@@ -65,11 +83,6 @@ export class SceneMain extends Phaser.Scene {
     this.setColliders();
     // sfx and music buttons
     let sb = new SoundButtons({ scene: this });
-    // scoreboard
-    this.scoreBoard = new ScoreBox({ scene: this });
-    this.scoreBoard.x = game.config.width / 2.15;
-    this.scoreBoard.y = 30;
-    this.scoreBoard.setScrollFactor(0);
   }
   // spawns rocks when zero
   makeRocks() {
@@ -114,15 +127,24 @@ export class SceneMain extends Phaser.Scene {
     this.text1.setText("Shields\n" + this.shields);
     if (this.shields == 0) {
       model.playerWon = false;
+      this.submScore();
+      model.score = 0;
       this.scene.start("SceneOver");
     }
+  }
+  // submit score
+  submScore() {
+    LeaderboardContent.submitScore(playerName, model.score);
   }
   // enemy's health
   downEnemy() {
     this.eshields--;
-    emitter.emit(G.UP_POINTS, 1);
+    emitter.emit(G.UP_POINTS, 8);
     this.scoreBoard.text1.setText("SCORE:" + model.score);
     this.text2.setText("Enemy Shields\n" + this.eshields);
+    if (this.eshields == 1) {
+      emitter.emit(G.UP_POINTS, 24);
+    }
     if (this.eshields == 0) {
       this.eship.destroy();
       let explosion = this.add.sprite(this.eship.x, this.eship.y, "exp");
@@ -214,7 +236,6 @@ export class SceneMain extends Phaser.Scene {
     let explosion = this.add.sprite(rock.x, rock.y, "exp");
     explosion.play("boom");
     emitter.emit(G.PLAY_SOUND, this.sound.add("explode", { volume: 0.1 }));
-
     rock.destroy();
     this.makeRocks();
     this.downPlayer();
@@ -309,45 +330,37 @@ export class SceneMain extends Phaser.Scene {
     if (this.cursors.left.isDown) {
       this.ship.x -= 2.3;
       this.ship.angle = -180;
-
       this.enemyChase();
     }
     if (this.cursors.up.isDown) {
       this.ship.y -= 2.3;
       this.ship.angle = -90;
-
       this.enemyChase();
     }
     if (this.cursors.right.isDown) {
       this.ship.x += 2.3;
       this.ship.angle = 0;
-
       this.enemyChase();
     }
     if (this.cursors.down.isDown) {
       this.ship.y += 2.3;
       this.ship.angle = 90;
-
       this.enemyChase();
     }
     if (this.cursors.left.isDown && this.cursors.up.isDown) {
       this.ship.angle = -135;
-
       this.enemyChase();
     }
     if (this.cursors.right.isDown && this.cursors.up.isDown) {
       this.ship.angle = -45;
-
       this.enemyChase();
     }
     if (this.cursors.right.isDown && this.cursors.down.isDown) {
       this.ship.angle = 45;
-
       this.enemyChase();
     }
     if (this.cursors.left.isDown && this.cursors.down.isDown) {
       this.ship.angle = 135;
-
       this.enemyChase();
     }
     // disable permanent shoot while space is constantly pressed
@@ -361,14 +374,13 @@ export class SceneMain extends Phaser.Scene {
       this.bulletGroup.add(bullet);
       bullet.angle = this.ship.angle;
       bullet.body.setVelocity(dirObj.tx * 350, dirObj.ty * 350);
-
       this.enemyChase();
       emitter.emit(G.PLAY_SOUND, this.sound.add("laser", { volume: 0.1 }));
     }
-
+    // distance x and y between ships
     let distX = Math.abs(this.ship.x - this.eship.x);
     let distY = Math.abs(this.ship.y - this.eship.y);
-
+    // minimum enemy ship fire distance
     if (distX < game.config.width / 3 && distY < game.config.height / 3) {
       this.fireEBullet();
     }

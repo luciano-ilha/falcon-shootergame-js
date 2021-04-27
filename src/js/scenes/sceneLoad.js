@@ -12,17 +12,16 @@ export class SceneLoad extends Phaser.Scene {
       x: game.config.width / 2,
       y: game.config.height / 2,
     });
-
+    // loading bar inner text
     this.progText = this.add.text(
       game.config.width / 2,
       game.config.height / 2,
       "0%",
       { color: "#ffffff", fontSize: game.config.width / 20 }
     );
-
     this.progText.setOrigin(0.5, 0.5);
     this.load.on("progress", this.onProgress, this);
-    // buttons images
+    // buttom image
     this.load.image("button1", "/src/images/ui/buttons/2/6.png");
     // audio
     this.load.audio("explode", [
@@ -41,11 +40,10 @@ export class SceneLoad extends Phaser.Scene {
     this.load.image("sfxOn", "/src/images/ui/icons/sfx_on.png");
     this.load.image("musicOn", "/src/images/ui/icons/music_on.png");
     this.load.image("musicOff", "/src/images/ui/icons/music_off.png");
-    // ships and rocks
+    // ships, rocks and bullets
     this.load.image("ship", "/src/images/player.png");
     this.load.image("background", "/src/images/background.jpg");
     this.load.image("leaderboards", "/src/images/leaderboards-title.png");
-
     this.load.spritesheet("rocks", "/src/images/rocks.png", {
       frameWidth: 125,
       frameHeight: 100,
@@ -57,12 +55,6 @@ export class SceneLoad extends Phaser.Scene {
     this.load.image("ebullet", "/src/images/ebullet.png");
     this.load.image("bullet", "/src/images/bullet.png");
     this.load.image("eship", "/src/images/eship.png");
-  }
-
-  onProgress(value) {
-    this.bar.setPercent(value);
-    let per = Math.floor(value * 100);
-    this.progText.setText(per + "%");
   }
 
   create() {
@@ -78,5 +70,11 @@ export class SceneLoad extends Phaser.Scene {
       repeat: false,
     });
     this.scene.start("SceneTitle");
+  }
+  // load progress bar
+  onProgress(value) {
+    this.bar.setPercent(value);
+    let per = Math.floor(value * 100);
+    this.progText.setText(per + "%");
   }
 }

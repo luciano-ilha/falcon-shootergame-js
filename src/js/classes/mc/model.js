@@ -1,4 +1,3 @@
-import { emitter, G } from "../../../index";
 import { mediaManager } from "../../../index";
 export class Model {
   constructor() {
@@ -18,8 +17,6 @@ export class Model {
 
   set score(val) {
     this._score = val;
-    // console.log("score updated!");
-    // emitter.emit(G.SCORE_UPDATED);
   }
 
   get score() {

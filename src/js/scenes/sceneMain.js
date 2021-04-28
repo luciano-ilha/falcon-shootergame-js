@@ -24,14 +24,14 @@ export class SceneMain extends Phaser.Scene {
     podiumNames.length = 0;
     podiumScores.length = 0;
     // play background music
-    // if (this.background == undefined) {
-    //   mediaManager.setBackgroundMusic(
-    //     this.sound.add("backgroundMusic", { volume: 0.2, loop: true })
-    //   );
-    // }
+    if (this.background == undefined) {
+      mediaManager.setBackgroundMusic(
+        this.sound.add("backgroundMusic", { volume: 0.2, loop: true })
+      );
+    }
     // ships health
-    this.shields = 10;
-    this.eshields = 10;
+    this.shields = 50;
+    this.eshields = 100;
     // center screen
     this.centerX = this.game.config.width / 2;
     this.centerY = this.game.config.height / 2;

@@ -1,4 +1,4 @@
-import { emitter, game, model, podiumNames, podiumScores } from "../../index";
+import { emitter, game, podiumNames, podiumScores } from "../../index";
 import { AlignGrid } from "../classes/util/alignGrid";
 import { Align } from "../classes/util/align";
 import { FlatButton } from "../classes/ui/flatButton";

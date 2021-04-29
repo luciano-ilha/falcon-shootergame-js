@@ -21,8 +21,8 @@ export class SceneMain extends Phaser.Scene {
       );
     }
     // ships health
-    this.shields = 5;
-    this.eshields = 10;
+    this.shields = 50;
+    this.eshields = 100;
     // center screen
     this.centerX = this.game.config.width / 2;
     this.centerY = this.game.config.height / 2;
@@ -117,10 +117,10 @@ export class SceneMain extends Phaser.Scene {
     this.text1.setText("Shields\n" + this.shields);
     if (this.shields == 0) {
       model.playerWon = false;
-      // LeaderboardContent.submitScore(
-      //   localStorage.getItem("playerName"),
-      //   model.score
-      // );
+      LeaderboardContent.submitScore(
+        localStorage.getItem("playerName"),
+        model.score
+      );
       emitter.emit(G.SET_SCORE, 0);
       this.scene.start("SceneOver");
     }
@@ -128,7 +128,7 @@ export class SceneMain extends Phaser.Scene {
   // enemy's health
   downEnemy() {
     this.eshields--;
-    emitter.emit(G.UP_POINTS, 441);
+    emitter.emit(G.UP_POINTS, 8);
     this.scoreBoard.text1.setText("SCORE:" + model.score);
     this.text2.setText("Enemy Shields\n" + this.eshields);
     if (this.eshields == 1) {

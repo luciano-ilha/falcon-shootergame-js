@@ -19,17 +19,6 @@ let emitter = new Phaser.Events.EventEmitter();
 let G = new Constants();
 let controller = new Controller();
 let mediaManager = new MediaManager({ scene: this });
-
-// if (!localStorage.getItem("playerName")) {
-//   submit.onclick = () => {
-//     localStorage.setItem("playerName", name.value);
-//     hide.style.display = "none";
-//     game = new Phaser.Game(config);
-//   };
-// } else {
-//   hide.style.display = "none";
-//   game = new Phaser.Game(config);
-// }
 // game
 let game;
 // user input

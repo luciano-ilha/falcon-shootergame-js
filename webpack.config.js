@@ -1,4 +1,5 @@
 const CopyPlugin = require("copy-webpack-plugin");
+const webpack = require("webpack");
 const path = require("path");
 
 module.exports = {
@@ -25,12 +26,16 @@ module.exports = {
         },
       ],
     }),
+    new webpack.DefinePlugin({
+      "typeof CANVAS_RENDERER": JSON.stringify(true),
+      "typeof WEBGL_RENDERER": JSON.stringify(true),
+    }),
   ],
   module: {
     rules: [
       {
         test: /\.m?js$/,
-        include: path.resolve(__dirname, "/src"),
+        include: path.resolve(__dirname, "src"),
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
@@ -51,9 +56,4 @@ module.exports = {
       },
     ],
   },
-  // devServer: {
-  //   contentBase: path.join(__dirname, "/dist"),
-  //   compress: true,
-  //   port: 9000,
-  // },
 };

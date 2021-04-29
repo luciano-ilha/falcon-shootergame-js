@@ -1,6 +1,6 @@
 # Falcon Shooter Game JS
 
-Falcon shooter is a game where the goal is to defeat your enemy as fast as possible. Player and foe lose health if meteors collide with their ships and of course...each others lasers! Who doesn't like lasers?!
+Falcon shooter is a game where the goal is to defeat your enemy as fast as possible. Player and foe lose health if meteors collide with their ships and of course...each others lasers! Who doesn't like lasers?!.
 
 ![Screenshot](src/images/shootergamescshot.png)
 

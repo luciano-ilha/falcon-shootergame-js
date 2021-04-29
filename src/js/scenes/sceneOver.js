@@ -1,4 +1,4 @@
-import { emitter, game, model, podiumNames, podiumScores } from "../../index";
+import { emitter, game, model, podium } from "../../index";
 import { AlignGrid } from "../classes/util/alignGrid";
 import { Align } from "../classes/util/align";
 import { FlatButton } from "../classes/ui/flatButton";
@@ -18,10 +18,10 @@ export class SceneOver extends Phaser.Scene {
   create() {
     // fetch leaderboard data
     this.leaderboard().then((data) => {
-      data.forEach((d) => {
-        podiumNames.push(d.user);
-        podiumScores.push(d.score);
-      });
+      console.log("over scene", data[0]);
+      podium.push(data[0]);
+      podium.push(data[1]);
+      podium.push(data[2]);
     });
     // bg image
     this.add.image(0, 0, "background").setOrigin(0.3, 0.3);

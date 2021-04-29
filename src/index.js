@@ -13,8 +13,7 @@ const hide = document.getElementById("hide");
 const name = document.getElementById("name");
 const submit = document.getElementById("submit");
 // important global var
-let podiumNames = [];
-let podiumScores = [];
+let podium = [];
 let model = new Model();
 let emitter = new Phaser.Events.EventEmitter();
 let G = new Constants();
@@ -54,13 +53,4 @@ const config = {
   scene: [SceneLoad, SceneTitle, SceneMain, SceneOver, SceneLeaderboard],
 };
 
-export {
-  game,
-  model,
-  emitter,
-  G,
-  controller,
-  mediaManager,
-  podiumNames,
-  podiumScores,
-};
+export { game, model, emitter, G, controller, mediaManager, podium };

@@ -1,12 +1,4 @@
-import {
-  emitter,
-  mediaManager,
-  model,
-  game,
-  G,
-  podiumNames,
-  podiumScores,
-} from "../../index";
+import { emitter, mediaManager, model, game, G, podium } from "../../index";
 import { SoundButtons } from "../classes/ui/soundButtons";
 import { Align } from "../classes/util/align";
 import { AlignGrid } from "../classes/util/alignGrid";
@@ -21,8 +13,7 @@ export class SceneMain extends Phaser.Scene {
 
   create() {
     // reset leaderboard
-    podiumNames.length = 0;
-    podiumScores.length = 0;
+    podium.length = 0;
     // play background music
     if (this.background == undefined) {
       mediaManager.setBackgroundMusic(
@@ -30,8 +21,8 @@ export class SceneMain extends Phaser.Scene {
       );
     }
     // ships health
-    this.shields = 50;
-    this.eshields = 100;
+    this.shields = 5;
+    this.eshields = 10;
     // center screen
     this.centerX = this.game.config.width / 2;
     this.centerY = this.game.config.height / 2;
@@ -126,22 +117,18 @@ export class SceneMain extends Phaser.Scene {
     this.text1.setText("Shields\n" + this.shields);
     if (this.shields == 0) {
       model.playerWon = false;
-      this.submScore();
+      // LeaderboardContent.submitScore(
+      //   localStorage.getItem("playerName"),
+      //   model.score
+      // );
       emitter.emit(G.SET_SCORE, 0);
       this.scene.start("SceneOver");
     }
   }
-  // submit score
-  submScore() {
-    LeaderboardContent.submitScore(
-      localStorage.getItem("playerName"),
-      model.score
-    );
-  }
   // enemy's health
   downEnemy() {
     this.eshields--;
-    emitter.emit(G.UP_POINTS, 8);
+    emitter.emit(G.UP_POINTS, 441);
     this.scoreBoard.text1.setText("SCORE:" + model.score);
     this.text2.setText("Enemy Shields\n" + this.eshields);
     if (this.eshields == 1) {

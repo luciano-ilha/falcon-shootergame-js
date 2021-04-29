@@ -1,16 +1,43 @@
-const CopyPlugin = require("copy-webpack-plugin");
-const webpack = require("webpack");
 const path = require("path");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = {
-  mode: "development",
-  entry: "./src/index.js",
+  entry: {
+    app: "./src/index.js",
+  },
+
   output: {
-    path: path.resolve(__dirname, "./dist"),
+    path: path.resolve(__dirname, "dist"),
     filename: "main.js",
   },
+
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        include: path.resolve(__dirname, "src/"),
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
+          },
+        },
+      },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
+
+  devServer: {
+    contentBase: path.resolve(__dirname, "dist"),
+    open: true,
+  },
+
   plugins: [
-    new CopyPlugin({
+    new CopyWebpackPlugin({
       patterns: [
         {
           from: path.resolve(__dirname, "src", "index.html"),
@@ -31,29 +58,4 @@ module.exports = {
       "typeof WEBGL_RENDERER": JSON.stringify(true),
     }),
   ],
-  module: {
-    rules: [
-      {
-        test: /\.m?js$/,
-        include: path.resolve(__dirname, "src"),
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env"],
-          },
-        },
-      },
-      {
-        test: /\.(gif|png|jpe?g|svg|xml)$/i,
-        use: {
-          loader: "file-loader",
-          options: {
-            name: "[name].[ext]",
-            outputPath: "images",
-          },
-        },
-      },
-    ],
-  },
 };

@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.13.15",
-    "phaser": "^3.54.0"
+    "phaser": "^3.54.0",
+    "regenerator-runtime": "^0.13.7"
   }
 }

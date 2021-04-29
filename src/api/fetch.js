@@ -1,3 +1,5 @@
+const regeneratorRuntime = require("regenerator-runtime");
+
 const LeaderboardContent = {
   URL:
     "https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/ESYau4Rpn7HGusloUq/scores",

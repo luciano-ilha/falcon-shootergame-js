@@ -27,4 +27,5 @@ const LeaderboardContent = {
   },
 };
 
-export { LeaderboardContent };
+// export { LeaderboardContent };
+module.exports = LeaderboardContent;

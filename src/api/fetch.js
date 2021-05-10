@@ -1,4 +1,5 @@
 const regeneratorRuntime = require("regenerator-runtime");
+const fetch = require("node-fetch");
 
 const LeaderboardContent = {
   URL:
@@ -27,5 +28,4 @@ const LeaderboardContent = {
   },
 };
 
-// export { LeaderboardContent };
-module.exports = LeaderboardContent;
+export { LeaderboardContent };

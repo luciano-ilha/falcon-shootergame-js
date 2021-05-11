@@ -1,20 +1,39 @@
 # Falcon Shooter Game JS
 
-This project is a shooter game built with HTML, CSS(Sass), JavaScript and Webpack.
+Falcon shooter is a game where the goal is to defeat your enemy as fast as possible. Player and foe lose health if meteors collide with their ships and of course...each others lasers! Who doesn't like lasers?!.
 
 ![Screenshot](src/images/shootergamescshot.png)
 
-# Live Demo
+## How to Play
 
-[Live Demo Link]()
+- Spacebar: Shoot lasers
+- Arrow keys: Move Ship
+
+## Live Demo
+
+[Live Demo Link](https://naughty-morse-7ed227.netlify.app/)
+
+## Game Development
+
+- My main goal, at the beginning, was to think how the game was going to be played and of course, the images to everything, ships, lasers and so on. I wanted to make a boss fight with different enemy and background music but it was taking me to long, after all Phaser was knew to me. I've also decided to let physics to affect ships (inertia), like when hit by a rock or each others lasers, since it is the space void =D.
+
+- Since i like games I decided to use Final Fantasy's battle theme as soundtrack, this is a masterpiece to me, it fits in ANY battle. Please enjoy! Credits and links at the end of this file.
 
 ## Built With
 
-- HTML
-- CSS
-- SASS
+- Phaser
 - JavaScript
 - Webpack
+
+## Tested With
+
+- Jest
+
+## Requirements
+
+- You'll need a package manager to install the dependencies listed in package.json in order to make the game work in your local machine.
+
+The project was built using npm, so it's recommended to have npm installed.
 
 ## Getting Started
 
@@ -26,7 +45,18 @@ $ git clone git@github.com:luciano-ilha/falcon-shootergame-js.git
 
 - CD into the repository
 - Run `npm install`
+
+This will install the dependencies in your local machine. This process can take a few minutes.
+
+## Running the Game Locally
+
+- Run `npm run build`
 - Run `npm start`
+- Choose src folder
+
+## Testing
+
+- Run `npm run test`
 
 ### Github Actions
 
@@ -58,4 +88,9 @@ Give a ⭐️ if you like this project!
 ## :thumbsup: Acknowledgements
 
 - Microverse
-- ThOdinProject
+- PhaserJS
+
+## Credits to
+
+1 . Nobuo Uematsu for this masterpiece track!
+[link](http://www.ffmages.com/ffvii/ost/disc-1/10-let-the-battles-begin.mp3)

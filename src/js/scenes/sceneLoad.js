@@ -71,6 +71,9 @@ export class SceneLoad extends Phaser.Scene {
     });
     this.scene.start("SceneTitle");
   }
+  add(num1, num2) {
+    num1 + num2;
+  }
   // load progress bar
   onProgress(value) {
     this.bar.setPercent(value);

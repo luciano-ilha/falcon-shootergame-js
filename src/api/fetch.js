@@ -1,4 +1,5 @@
 const regeneratorRuntime = require("regenerator-runtime");
+const fetch = require("node-fetch");
 
 const LeaderboardContent = {
   URL:

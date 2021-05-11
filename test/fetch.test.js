@@ -1,4 +1,4 @@
-const LeaderboardContent = require("../src/api/fetch");
+import { LeaderboardContent } from "../src/api/fetch";
 
 describe("LeaderboardContent.getScores", () => {
   test("the promise resolves in a JSON file", async () => {

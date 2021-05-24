@@ -11,7 +11,7 @@ Falcon shooter is a game where the goal is to defeat your enemy as fast as possi
 
 ## Live Demo
 
-[Live Demo Link](https://naughty-morse-7ed227.netlify.app/)
+[Live Demo Link](https://beesmart-falconshooter.netlify.app/)
 
 ## Game Development
 
